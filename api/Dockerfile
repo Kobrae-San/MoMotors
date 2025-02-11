@@ -1,11 +1,13 @@
 FROM python:3.9
 
-WORKDIR /code
+WORKDIR /usr/src/app
 
-COPY requirements.txt /code/
+COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main.py /code/
+COPY ./main.py .
 
-CMD ["fastapi", "run", "main.py", "--port", "80"]
+EXPOSE 3000
+
+CMD ["fastapi", "run", "main.py", "--port", "3000"]
