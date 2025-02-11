@@ -22,9 +22,9 @@ MoMotors est donc le projet de refonte de cette application.
 
 ## Contributeurs
 
-- Heitz Julien
-- Charrier Faustine
-- Almeida Lima Mattis
-- Lin Chrisline
-- Machefaux Valentin
-- Gboble Djédjé
+- [Heitz Julien](https://github.com/heitzjulien)
+- [Charrier Faustine](https://github.com/Nyoote)
+- [Almeida Lima Mattis](https://github.com/MattisAvec2T)
+- [Lin Chrisline](https://github.com/LinelinLove)
+- [Machefaux Valentin](https://github.com/ValentinMachefaux)
+- [Gboble Djédjé](https://github.com/Kobrae-San)
