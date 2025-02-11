@@ -10,7 +10,7 @@ MoMotors est donc le projet de refonte de cette application.
 ### Backend
 
 - FastAPI
-- PostgreSQL
+- PostgreSQL 17.2
 
 ### Frontend
 
