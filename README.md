@@ -5,7 +5,7 @@ Suite à une étude de marché elle a décidé d'ajouter un nouveau service de l
 Dans ce but une refonte de l'application web a été lancé.
 MoMotors est donc le projet de refonte de cette application.
 
-## Technologies utilisée
+## Technologies utilisées
 
 ### Backend
 
@@ -14,7 +14,7 @@ MoMotors est donc le projet de refonte de cette application.
 
 ### Frontend
 
-- Angular
+- Angular 19.1
 
 ### DevOpS
 
