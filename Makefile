@@ -1,5 +1,5 @@
 COMPOSE = docker-compose
-PM=pnpm # Package manager
+PM=npm # Package manager
 
 YELLOW = \033[33m
 RED = \033[31m
