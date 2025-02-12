@@ -25,12 +25,12 @@ services:
 
   ms-file:
     build:
-      context: ./microservices/file
+      context: microservices/transaction
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
     volumes:
-      - ./microservices/file:/usr/src/app
+      - ./microservices/transaction:/usr/src/app
       - ./microservices/shared:/app/shared
     depends_on:
       - database
