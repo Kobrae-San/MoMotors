@@ -20,8 +20,8 @@ services:
     ports:
       - "4200:4200"
     volumes:
-      - ./client:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./client:/app
+      - /app/node_modules
 
   ms-transaction:
     build:
@@ -30,7 +30,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ./microservices/file:/usr/src/app
+      - ./microservices/transaction:/app
       - ./microservices/shared:/app/shared
     depends_on:
       - database
@@ -42,7 +42,7 @@ services:
     ports:
       - "3002:3002"
     volumes:
-      - ./microservices/user:/usr/src/app
+      - ./microservices/user:/app
       - ./microservices/shared:/app/shared
     depends_on:
       - database
@@ -54,7 +54,7 @@ services:
     ports:
       - "3003:3003"
     volumes:
-      - ./microservices/vehicle:/usr/src/app
+      - ./microservices/vehicle:/app
       - ./microservices/shared:/app/shared
     depends_on:
       - database
