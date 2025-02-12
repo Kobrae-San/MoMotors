@@ -16,8 +16,14 @@ help: ## Display this help
 
 ##@ Develop
 .PHONY: dev
-dev: ## Run all containers in dev mode
+up: ## Run all containers in dev mode
 	$(COMPOSE) up -d
+
+build: ## Build with no cache
+	$(COMPOSE) build --no-cache
+
+down: ## Down all containers
+	$(COMPOSE) down
 
 ##@ Utilities
 .PHONY: status

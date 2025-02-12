@@ -1,0 +1,17 @@
+[project]
+name = "file-service"
+version = "0.1.0"
+description = "Microservice for managing purchase and rental files"
+authors = [
+    {name = "Julien",email = "contact@heitzjulien.fr"}
+]
+requires-python = "3.13.2"
+dependencies = [
+    "fastapi[standard] (>=0.115.8,<0.116.0)",
+    "pydantic (>=2.10.6,<3.0.0)",
+    "uvicorn (>=0.34.0,<0.35.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
