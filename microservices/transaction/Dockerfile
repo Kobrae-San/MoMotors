@@ -10,7 +10,7 @@ RUN poetry lock
 
 RUN poetry install --no-root
 
-COPY ../file .
+COPY . .
 
 EXPOSE 3001
 
