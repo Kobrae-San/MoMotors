@@ -23,7 +23,7 @@ services:
       - ./client:/usr/src/app
       - /usr/src/app/node_modules
 
-  file:
+  ms-file:
     build:
       context: ./microservices/file
       dockerfile: Dockerfile
@@ -35,7 +35,7 @@ services:
     depends_on:
       - database
 
-  user:
+  ms-user:
     build:
       context: ./microservices/user
       dockerfile: Dockerfile
@@ -47,7 +47,7 @@ services:
     depends_on:
       - database
 
-  vehicle:
+  ms-vehicle:
     build:
       context: ./microservices/vehicle
       dockerfile: Dockerfile
