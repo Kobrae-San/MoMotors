@@ -3,7 +3,6 @@ CREATE TYPE brand AS ENUM ('Renault','Peugeot','Dacia','Citroën','Volkswagen','
 CREATE TYPE transaction_state AS ENUM ('pending','validated','refused');
 CREATE TYPE role AS ENUM ('director','IT','finance','after_sales','HR','sales');
 CREATE TYPE vehicle_type AS ENUM ('buy','location');
-CREATE TYPE gender AS ENUM ('male,female,other');
 CREATE TYPE category AS ENUM ('suv','sedan','hatchback','city_car','convertible','coupe','station_wagon','minivan','pickup','roadster','off_road','supercar','hypercar');
 
 CREATE TABLE "employee" (
