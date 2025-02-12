@@ -1,6 +1,6 @@
 FROM python:3.13.2-alpine3.21
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 RUN pip install poetry --no-cache-dir
 
