@@ -23,9 +23,9 @@ services:
       - ./client:/usr/src/app
       - /usr/src/app/node_modules
 
-  ms-file:
+  ms-transaction:
     build:
-      context: ./microservices/file
+      context: ./microservices/transaction
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
