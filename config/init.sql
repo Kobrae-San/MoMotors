@@ -6,29 +6,29 @@ CREATE TYPE vehicle_type AS ENUM ('Vente','Location');
 CREATE TYPE category AS ENUM ('SUV', 'Berline', 'Compacte', 'Citadine', 'Cabriolet', 'Coupé', 'Break', 'Monospace', 'Pick-up', 'Roadster', 'Tout-terrain', 'Supercar', 'Hypercar', '2 Roues');
 
 CREATE TABLE "employee" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "role" role,
   "email" VARCHAR(255) UNIQUE,
   "password" VARCHAR(255),
   "firstname" VARCHAR(255),
   "lastname" VARCHAR(255),
-  "created_at" TIMESTAMP,
-  "updated_at" TIMESTAMP
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "user" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "password" VARCHAR(255),
   "firstname" VARCHAR(255),
   "lastname" VARCHAR(255),
   "email" VARCHAR(255) UNIQUE,
   "telephone" VARCHAR UNIQUE,
-  "created_at" TIMESTAMP,
-  "updated_at" TIMESTAMP
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "vehicle" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "model" VARCHAR(255),
   "year" integer,
   "km" float,
@@ -41,7 +41,7 @@ CREATE TABLE "vehicle" (
 );
 
 CREATE TABLE "transaction" (
-  "id" integer PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "id_vehicle" integer,
   "id_user" integer,
   "status" transaction_state,
@@ -49,10 +49,38 @@ CREATE TABLE "transaction" (
   "start_time" DATE,
   "end_time" DATE,
   "validated_at" TIMESTAMP,
-  "created_at" TIMESTAMP,
-  "updated_at" TIMESTAMP
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE "transaction" ADD FOREIGN KEY ("id_vehicle") REFERENCES "vehicle" ("id");
 ALTER TABLE "transaction" ADD FOREIGN KEY ("id_user") REFERENCES "user" ("id");
 ALTER TABLE "transaction" ADD FOREIGN KEY ("id_admin") REFERENCES "employee" ("id");
+
+CREATE OR REPLACE FUNCTION update_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_employee_timestamp
+BEFORE UPDATE ON "employee"
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamp();
+
+CREATE TRIGGER update_user_timestamp
+BEFORE UPDATE ON "user"
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamp();
+
+CREATE TRIGGER update_vehicle_timestamp
+BEFORE UPDATE ON "vehicle"
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamp();
+
+CREATE TRIGGER update_transaction_timestamp
+BEFORE UPDATE ON "transaction"
+FOR EACH ROW
+EXECUTE FUNCTION update_timestamp();
