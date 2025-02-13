@@ -4,11 +4,11 @@ from shared.utils.database import Database
 
 app = FastAPI()
 
-db = Database()  # Instanciation de la classe Database
+db = Database()
 
 @app.get("/")
 def read_root():
-    result = db.query("SELECT * FROM user;")  # Utilisation de l'instance db
+    result = db.query("SELECT * FROM user;")
     return {"Hello": "World!", "users": result}
 
 @app.get("/items/{item_id}")
