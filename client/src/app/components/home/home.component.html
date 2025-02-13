@@ -1,29 +1,4 @@
 <div class="container">
   <h1 class="title">Voitures disponibles</h1>
-  <div class="cars-list">
-    @for (car of cars; track car.id) {
-      <p-card class="car-card">
-        <ng-template pTemplate="header">
-          <img src="https://via.placeholder.com/150" alt="{{ car.brand }}" />
-        </ng-template>
-        <ng-template pTemplate="title">
-          {{ car.brand }} {{ car.model }}
-        </ng-template>
-        <ng-template pTemplate="content">
-          <p>Prix: {{ car.price }} €</p>
-          <p [ngClass]="car.available ? 'available' : 'unavailable'">
-            {{ car.available ? "Disponible" : "Indisponible" }}
-          </p>
-        </ng-template>
-        <ng-template pTemplate="footer">
-          <button
-            pButton
-            type="button"
-            pButtonLabel="Louer"
-            class="p-button-primary"
-            [disabled]="!car.available"></button>
-        </ng-template>
-      </p-card>
-    }
-  </div>
+  <app-vehicle />
 </div>

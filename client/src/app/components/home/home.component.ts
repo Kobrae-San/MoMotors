@@ -1,22 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { VehicleService } from "../../shared/services/vehicle.service";
-import { Card } from "primeng/card";
-import { NgClass } from "@angular/common";
-import { PrimeTemplate } from "primeng/api";
-import { ButtonDirective, ButtonLabel } from "primeng/button";
+import { Component } from "@angular/core";
+import { VehicleComponent } from "../vehicle/vehicle.component";
 
 @Component({
   selector: "app-home",
-  imports: [Card, NgClass, PrimeTemplate, ButtonDirective, ButtonLabel],
+  imports: [VehicleComponent],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.css",
 })
-export class HomeComponent implements OnInit {
-  public cars: any[] = [];
-  constructor(private vehicleService: VehicleService) {}
-
-  ngOnInit() {
-    this.cars = this.vehicleService.getAll();
-    console.log(this.cars);
-  }
-}
+export class HomeComponent {}

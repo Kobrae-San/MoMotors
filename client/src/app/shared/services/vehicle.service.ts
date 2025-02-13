@@ -5,8 +5,16 @@ import { Injectable } from "@angular/core";
 })
 export class VehicleService {
   public cars = [
-    { id: 1, brand: "Tesla", model: "Model 3", price: 50000, available: true },
-    { id: 2, brand: "BMW", model: "X5", price: 60000, available: false },
+    {
+      model: "Model Y",
+      brand: "Tesla",
+      year: 2022,
+      km: 15_000,
+      price: 42_500,
+      type: "vente",
+      imageUrl:
+        "https://images.pexels.com/photos/30306584/pexels-photo-30306584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    },
   ];
 
   constructor() {}

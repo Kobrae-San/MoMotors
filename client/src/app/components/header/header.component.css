@@ -6,9 +6,9 @@
   transition: all 0.3s;
 }
 .nav-link:hover {
-  color: blue;
+  color: var(--primary);
 }
 .nav-link.active {
   font-weight: bold;
-  color: blue;
+  color: var(--primary);
 }

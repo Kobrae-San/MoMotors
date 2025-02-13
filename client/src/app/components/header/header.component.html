@@ -1,11 +1,19 @@
-<header class="bg-white text-black p-4 flex justify-between items-center">
-  <h1 class="text-3xl font-bold">
-    <a routerLink="/" routerLinkActive="active">MoMotors</a>
+<header
+  class="bg-white/90 backdrop-blur-md text-black p-4 flex justify-between items-center shadow-lg fixed top-0 left-0 w-full z-50">
+  <h1 class="fire-text text-3xl">
+    <a routerLink="/" routerLinkActive="active">
+      <img src="logo.gif" alt="logo" class="h-8" />
+    </a>
   </h1>
-  <nav class="flex space-x-4">
-    <a href="/achat" class="nav-link">Achat</a>
-    <a href="/location" class="nav-link">Location</a>
-    <a href="/login" class="nav-link">Connexion</a>
-    <a href="/signup" class="nav-link">Inscription</a>
+  <nav class="flex space-x-6">
+    <a routerLink="/achat" routerLinkActive="active" class="nav-link text-sm"
+      >Achat</a
+    >
+    <a routerLink="/location" routerLinkActive="active" class="nav-link text-sm"
+      >Location</a
+    >
+    <a routerLink="/login" routerLinkActive="active" class="nav-link text-sm">
+      Connexion / Inscription
+    </a>
   </nav>
 </header>
