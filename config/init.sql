@@ -1,9 +1,9 @@
-CREATE TYPE energy AS ENUM ('electric','diesel','hybrid','hydrogen','CNG','LPG');
+CREATE TYPE energy AS ENUM ('Electrique','Diesel','Hybride','Essence');
 CREATE TYPE brand AS ENUM ('Renault','Peugeot','Dacia','Citroën','Volkswagen','Toyota','Tesla','BMW','Mercedes','Ford','Audi','Hyundai','Kia','Opel','Fiat','Škoda','Nissan','MG','Mini','DS','Suzuki','Seat','Volvo','Cupra','Jeep','Land Rover','Lexus','Alfa Romeo','Porsche','Lynk & Co','Alpine','Mitsubishi','Smart','Jaguar','Abarth','Maserati','Lotus','Lamborghini','Bentley','Rolls Royce','Mobilize','Bugatti');
-CREATE TYPE transaction_state AS ENUM ('pending','validated','refused');
-CREATE TYPE role AS ENUM ('director','IT','finance','after_sales','HR','sales');
-CREATE TYPE vehicle_type AS ENUM ('buy','location');
-CREATE TYPE category AS ENUM ('suv','sedan','hatchback','city_car','convertible','coupe','station_wagon','minivan','pickup','roadster','off_road','supercar','hypercar');
+CREATE TYPE transaction_state AS ENUM ('En attente','Validé','Refusé');
+CREATE TYPE role AS ENUM ('Directeur','IT','Finance','Service après vente','RH','Commercial');
+CREATE TYPE vehicle_type AS ENUM ('Vente','Location');
+CREATE TYPE category AS ENUM ('SUV', 'Berline', 'Compacte', 'Citadine', 'Cabriolet', 'Coupé', 'Break', 'Monospace', 'Pick-up', 'Roadster', 'Tout-terrain', 'Supercar', 'Hypercar', '2 Roues');
 
 CREATE TABLE "employee" (
   "id" integer PRIMARY KEY,
