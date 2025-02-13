@@ -43,9 +43,9 @@ CREATE TABLE "vehicle" (
 CREATE TABLE "transaction" (
   "id" integer PRIMARY KEY,
   "id_vehicle" integer,
-  "id_user" integer UNIQUE,
+  "id_user" integer,
   "status" transaction_state,
-  "id_admin" integer UNIQUE,
+  "id_admin" integer,
   "start_time" DATE,
   "end_time" DATE,
   "validated_at" TIMESTAMP,
@@ -53,24 +53,6 @@ CREATE TABLE "transaction" (
   "updated_at" TIMESTAMP
 );
 
-CREATE TABLE "employee_transaction" (
-  "employee_id" integer,
-  "transaction_id_admin" integer,
-  PRIMARY KEY ("employee_id", "transaction_id_admin")
-);
-
-ALTER TABLE "employee_transaction" ADD FOREIGN KEY ("employee_id") REFERENCES "employee" ("id");
-
-ALTER TABLE "employee_transaction" ADD FOREIGN KEY ("transaction_id_admin") REFERENCES "transaction" ("id_admin");
-
-CREATE TABLE "user_transaction" (
-  "user_id" integer,
-  "transaction_id_user" integer,
-  PRIMARY KEY ("user_id", "transaction_id_user")
-);
-
-ALTER TABLE "user_transaction" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-
-ALTER TABLE "user_transaction" ADD FOREIGN KEY ("transaction_id_user") REFERENCES "transaction" ("id_user");
-
 ALTER TABLE "transaction" ADD FOREIGN KEY ("id_vehicle") REFERENCES "vehicle" ("id");
+ALTER TABLE "transaction" ADD FOREIGN KEY ("id_user") REFERENCES "user" ("id");
+ALTER TABLE "transaction" ADD FOREIGN KEY ("id_admin") REFERENCES "employee" ("id");
