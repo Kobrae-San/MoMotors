@@ -8,7 +8,7 @@ db = Database()
 
 @app.get("/")
 def read_root():
-    result = db.query("SELECT * FROM user;")
+    result = db.query("SELECT * FROM `user`;")
     return {"Hello": "World!", "users": result}
 
 @app.get("/items/{item_id}")
