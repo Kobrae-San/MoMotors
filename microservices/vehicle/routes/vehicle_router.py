@@ -23,8 +23,7 @@ class VehicleRouter:
         self._setup_routes()
 
     def _setup_routes(self):
-        print("yop router")
-        self.router.get("/")(self.controller.get_all_vehicles)
+        self.router.get("/", response_model=List[VehicleModel])(self.controller.get_all_vehicles)
         self.router.post("/create", response_model=VehicleModel)(self.controller.create_vehicle)
         # self.router.put("/update", response_model=VehicleModel)(self.controller.update_vehicle)
 
