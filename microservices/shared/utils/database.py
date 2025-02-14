@@ -22,8 +22,6 @@ class Database:
                 port=self.port
             )
             cur = conn.cursor()
-            print(f"{self.host}")
-            print("Yop Yop Yop !")
             return conn, cur
         except Exception as e:
             print(f"Database connection error : {e}")
@@ -36,7 +34,10 @@ class Database:
 
         try:
             cur.execute(query, params)
-            if fetch:
+            if "RETURNING" in query.upper():
+                conn.commit()
+                result = cur.fetchone()
+            elif fetch:
                 result = cur.fetchall()
             else:
                 conn.commit()
@@ -51,7 +52,7 @@ class Database:
         return result
 
     def query(self, query, params=None):
-        if query.strip().lower().startswith("select"):
+        if query.strip().lower().startswith("select") or "RETURNING" in query.upper():
             return self._execute(query, params, fetch=True)
         else:
-            self._execute(query, params)
+            return self._execute(query, params)
