@@ -3,7 +3,7 @@ from datetime import datetime, date
 from typing import Optional, Literal
 
 
-class TransacptionModel(BaseModel):
+class TransactionModel(BaseModel):
     id: Optional[int] = None
     id_vehicle: Optional[int] = None
     id_user: Optional[int] = None
