@@ -1,14 +1,16 @@
 {
-    "tabWidth": 2,
-    "useTabs": false,
-    "singleQuote": false,
-    "semi": true,
-    "bracketSpacing": true,
-    "arrowParens": "avoid",
-    "trailingComma": "es5",
-    "bracketSameLine": true,
-    "printWidth": 80,
-   "overrides": [
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": false,
+  "semi": true,
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "trailingComma": "es5",
+  "bracketSameLine": true,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "ignore",
+  "overrides": [
     {
       "files": "*.html",
       "options": {
