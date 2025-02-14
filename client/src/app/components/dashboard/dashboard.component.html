@@ -1,0 +1,46 @@
+<p-panel header="Gestion des véhicules">
+  <p-table [value]="vehicleData" [paginator]="true" [rows]="5" showGridlines>
+    <ng-template #header>
+      <tr>
+        <th>ID du véhicule</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Statut</th>
+        <th>Prix</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-vehicle>
+      <tr>
+        <td>{{ vehicle.id }}</td>
+        <td>{{ vehicle.brand }}</td>
+        <td>{{ vehicle.model }}</td>
+        <td>
+          <p-tag
+            [value]="vehicle.type"
+            [severity]="getType(vehicle.type)"></p-tag>
+        </td>
+        <td>{{ vehicle.price }} €</td>
+        <td>
+          <p-button
+            class="m-2"
+            severity="warn"
+            pTooltip="Modifier"
+            tooltipPosition="top"
+            icon="pi pi-file-edit"
+            (click)="editVehicle(vehicle)"></p-button>
+          <p-button
+            severity="warn"
+            pTooltip="Voir détails"
+            tooltipPosition="top"
+            icon="pi pi-info-circle"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>
+
+<app-edit-vehicle-dialog
+  [(displayEditVehicleDialog)]="displayEditVehicleDialog"
+  [vehicle]="selectedVehicle"
+  (vehicleUpdated)="updateVehicle($event)"></app-edit-vehicle-dialog>

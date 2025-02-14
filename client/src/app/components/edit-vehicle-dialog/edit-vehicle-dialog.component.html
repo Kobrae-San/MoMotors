@@ -1,0 +1,41 @@
+<p-dialog
+  header="Modifier le véhicule"
+  [(visible)]="displayEditVehicleDialog"
+  [modal]="true"
+  [style]="{ width: '30rem' }"
+  (onHide)="closeDialog()">
+  <form [formGroup]="vehicleForm">
+    <div class="p-fluid">
+      <div class="p-field flex items-center gap-4 mb-4">
+        <label for="id">ID du véhicule</label>
+        <input pInputText id="id" formControlName="id" />
+      </div>
+
+      <div class="p-field flex items-center gap-4 mb-4">
+        <label for="brand">Marque</label>
+        <input pInputText id="brand" formControlName="brand" />
+      </div>
+
+      <div class="p-field flex items-center gap-4 mb-4">
+        <label for="model">Modèle</label>
+        <input pInputText id="model" formControlName="model" />
+      </div>
+
+      <div class="p-field flex items-center gap-4 mb-4">
+        <label for="price">Prix (€)</label>
+        <input pInputText id="price" type="number" formControlName="price" />
+      </div>
+    </div>
+  </form>
+
+  <div class="p-dialog-footer">
+    <p-button
+      label="Annuler"
+      severity="secondary"
+      (click)="closeDialog()"></p-button>
+    <p-button
+      label="Enregistrer"
+      (click)="saveChanges()"
+      [disabled]="vehicleForm.invalid"></p-button>
+  </div>
+</p-dialog>
