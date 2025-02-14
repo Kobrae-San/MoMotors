@@ -25,12 +25,12 @@ def get_transactions():
             JOIN "user" u ON t.id_user = u.id
             JOIN "vehicle" v ON t.id_vehicle = v.id
     '''
-    params = []
+    params = ()
     admin = True #Mettre une vrai fonction qui vérifie si on est admin
     if not admin :
         id_user = 1 #Récupérer le vrai id du client
         query += ' WHERE u.id = %s'
-        params.append(id_user)
+        params = (id_user,)
     query += ' ORDER BY t.validated_at IS NOT NULL, t.validated_at DESC'
 
     results = db.query(query, params)
