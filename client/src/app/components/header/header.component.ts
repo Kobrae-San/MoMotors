@@ -6,6 +6,6 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   selector: "app-header",
   imports: [CommonModule, RouterLinkActive, RouterLink],
   templateUrl: "./header.component.html",
-  styleUrl: "./header.component.css",
+  styleUrl: "./header.component.scss",
 })
 export class HeaderComponent {}

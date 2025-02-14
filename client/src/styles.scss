@@ -1,0 +1,5 @@
+@use "tailwindcss";
+@use "app/styles/variables";
+@use 'primeicons/primeicons.css';
+
+@theme {  --color-purple: var(--primary);}

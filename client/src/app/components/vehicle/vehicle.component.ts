@@ -8,7 +8,7 @@ import { CurrencyPipe } from "@angular/common";
   selector: "app-vehicle",
   imports: [Card, Button, CurrencyPipe],
   templateUrl: "./vehicle.component.html",
-  styleUrl: "./vehicle.component.css",
+  styleUrl: "./vehicle.component.scss",
 })
 export class VehicleComponent implements OnInit {
   public cars: any[] = [];
