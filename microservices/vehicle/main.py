@@ -20,7 +20,7 @@ def create_app() -> FastAPI:
     vehicle_router = VehicleRouter(vehicle_controller)
 
     app.include_router(vehicle_router.get_router())
-    print(db)
+    
     return app
 
 app = create_app()
