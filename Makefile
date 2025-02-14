@@ -1,5 +1,6 @@
 COMPOSE = docker-compose
 PM=npm # Package manager
+ENV_FILE=.env
 
 YELLOW = \033[33m
 RED = \033[31m
@@ -24,6 +25,17 @@ build: ## Build with no cache
 
 down: ## Down all containers
 	$(COMPOSE) down
+
+env:
+	@if [ -f $(ENV_FILE) ]; then echo "$(ENV_FILE) already exists!"; exit 1; fi
+	@touch $(ENV_FILE)
+	@echo "Creating $(ENV_FILE) with default values..."
+	@echo "POSTGRES_DB_HOST=localhost" >> $(ENV_FILE)
+	@echo "POSTGRES_DB_NAME=groupe7-dev" >> $(ENV_FILE)
+	@echo "POSTGRES_DB_PORT=5432" >> $(ENV_FILE)
+	@echo "POSTGRES_DB_USER=root" >> $(ENV_FILE)
+	@echo "POSTGRES_DB_PASSWORD=root" >> $(ENV_FILE)
+	@echo "Done!"
 
 ##@ Utilities
 .PHONY: status
