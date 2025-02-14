@@ -21,7 +21,7 @@ services:
       - "4200:4200"
     volumes:
       - ./client:/app
-      - /app/node_modules
+      - node_modules:/app/node_modules
 
   ms-transaction:
     build:
@@ -76,3 +76,6 @@ services:
       - ./microservices/shared:/app/shared
     depends_on:
       - database
+
+volumes:
+  node_modules:
