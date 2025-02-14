@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from shared.utils.database import Database
 from shared.models.transaction import TransactionModel
 
@@ -55,6 +54,3 @@ def create_transaction(transaction: TransactionModel):
     if result:
         print(f"Transaction created with ID: {result}")
     return result if result else None
-=======
-# les requetes sql
->>>>>>> 7c0ae4b (fix typo + add controller and repo)
