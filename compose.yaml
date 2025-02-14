@@ -3,9 +3,9 @@ services:
     image: postgres:17.2
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mmotor
+      POSTGRES_USER: ${POSTGRES_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
     ports:
       - 5432:5432
     volumes:
@@ -23,10 +23,16 @@ services:
       - ./client:/app
 #      - /app/node_modules
 
-  ms-file:
+  ms-transaction:
     build:
-      context: microservices/transaction
+      context: ./microservices/transaction
       dockerfile: Dockerfile
+    environment:
+      DB_NAME: ${POSTGRES_DB_NAME}
+      DB_USER: ${POSTGRES_DB_USER}
+      DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      DB_HOST: ${POSTGRES_DB_HOST}
+      DB_PORT: ${POSTGRES_DB_PORT}
     ports:
       - "3001:3001"
     volumes:
@@ -39,6 +45,12 @@ services:
     build:
       context: ./microservices/user
       dockerfile: Dockerfile
+    environment:
+      DB_NAME: ${POSTGRES_DB_NAME}
+      DB_USER: ${POSTGRES_DB_USER}
+      DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      DB_HOST: ${POSTGRES_DB_HOST}
+      DB_PORT: ${POSTGRES_DB_PORT}
     ports:
       - "3002:3002"
     volumes:
@@ -51,6 +63,12 @@ services:
     build:
       context: ./microservices/vehicle
       dockerfile: Dockerfile
+    environment:
+      DB_NAME: ${POSTGRES_DB_NAME}
+      DB_USER: ${POSTGRES_DB_USER}
+      DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      DB_HOST: ${POSTGRES_DB_HOST}
+      DB_PORT: ${POSTGRES_DB_PORT}
     ports:
       - "3003:3003"
     volumes:
