@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { Card } from "primeng/card";
 import { Button } from "primeng/button";
 import { VehicleService } from "../../shared/services/vehicle.service";
-import { CurrencyPipe, NgClass } from "@angular/common";
+import { CurrencyPipe } from "@angular/common";
 
 @Component({
   selector: "app-vehicle",
-  imports: [Card, Button, CurrencyPipe, NgClass],
+  imports: [Card, Button, CurrencyPipe],
   templateUrl: "./vehicle.component.html",
   styleUrl: "./vehicle.component.css",
 })
