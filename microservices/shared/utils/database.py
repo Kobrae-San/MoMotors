@@ -22,6 +22,8 @@ class Database:
                 port=self.port
             )
             cur = conn.cursor()
+            print(f"{self.host}")
+            print("Yop Yop Yop !")
             return conn, cur
         except Exception as e:
             print(f"Database connection error : {e}")
