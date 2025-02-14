@@ -34,6 +34,13 @@ class Database:
 
         try:
             cur.execute(query, params)
+
+            # Si la query contient un RETURNING, on récupère l'ID retourné
+            if "RETURNING" in query:
+                conn.commit()
+                result = cur.fetchone()  # Récupère la première ligne (ID retourné par RETURNING)
+                return result
+
             if fetch:
                 result = cur.fetchall()
             else:
@@ -52,4 +59,4 @@ class Database:
         if query.strip().lower().startswith("select"):
             return self._execute(query, params, fetch=True)
         else:
-            self._execute(query, params)
+            return self._execute(query, params, fetch=False)

@@ -9,17 +9,36 @@ class TransactionRepository:
         result = db.query(query)
         return result if result else None
     
-    # @staticmethod
-    # def create(db: Session, transaction: TransactionModel):
-    #     query = """
-    #     INSERT INTO transactions (id_vehicle, id_user, status, id_admin, created_at, updated_at, validated_at, start_time, end_time)
-    #     VALUES (:id_vehicle, :id_user, :status, :id_admin, NOW(), NOW(), :validated_at, :start_time, :end_time)
-    #     RETURNING id;
-    #     """
-    #     result = db.execute(query, transaction.dict())
-    #     db.commit()
-    #     return result.fetchone()[0]
+    @staticmethod
+    def create(transaction: TransactionModel):
+        db = Database()
 
+        query = """
+            INSERT INTO transaction (id_vehicle, id_user, status, id_admin, validated_at, start_time, end_time)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """
+        
+        try:
+            result = db.query(query, (
+                transaction.id_vehicle,  
+                transaction.id_user,
+                transaction.status,
+                transaction.id_admin,
+                transaction.validated_at,
+                transaction.start_time,
+                transaction.end_time
+            ))
+
+            if result:
+                transaction.id = result[0]
+                return transaction
+            else:
+                return None
+        except Exception as e:
+            print(f"Erreur lors de l'exécution de la requête SQL: {e}")
+            return None
+    
     # @staticmethod
     # def find_by_id(db: Session, transaction_id: int):
     #     query = "SELECT * FROM transactions WHERE id = :id"
