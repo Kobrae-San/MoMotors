@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from repository import fetch_transactions, update_transaction_status, create_transaction
 from typing import Union
 
@@ -16,3 +17,15 @@ def create(transaction):
         return {"message": "Transaction créée", "transaction_id": created_transaction}
     else:
         return {"message": "Échec de la création de la transaction"}
+=======
+from typing import Union
+
+def read_root():
+    return {"Hello":"Hello World from transaction !"}
+
+def read_transaction(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+
+def create_transaction(item_id: int, q: Union[str, None] = None):
+    return {"message": "Transaction créée", "item_id": item_id, "q": q}
+>>>>>>> 7c0ae4b (fix typo + add controller and repo)
