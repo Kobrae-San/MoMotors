@@ -31,7 +31,7 @@ def get_transactions():
         id_user = 1 #Récupérer le vrai id du client
         query += ' WHERE u.id = %s'
         params = (id_user,)
-    query += ' ORDER BY t.validated_at IS NOT NULL, t.validated_at DESC'
+    query += ' ORDER BY t.status'
 
     results = db.query(query, params)
 
