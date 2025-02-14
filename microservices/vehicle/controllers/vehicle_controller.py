@@ -13,10 +13,7 @@ class VehicleController:
             raise HTTPException(400, "Error while adding vehicle.")
 
     async def get_all_vehicles(self):
-        print("yop avant le try")
         try:
-            print("yop controllers")
             return self.service.get_all_vehicles()
         except:
-            print("erreur controllers")
             raise HTTPException(400, "Error while retrieving vehicle.")
