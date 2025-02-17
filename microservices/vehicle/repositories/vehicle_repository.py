@@ -1,27 +1,60 @@
 from shared.models.vehicle import VehicleModel
 from shared.utils.database import Database
 
-class VehicleRepository:
-    def __init__(self, db: Database):
-        self.db = db
+def insert_vehicle(vehicle_model = VehicleModel):
+    query = """
+                INSERT INTO vehicle (model, year, km, type, price, brand, energy, category, description) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING id, model, year, km, type, price, brand, energy, category, description
+            """
+    params = (
+                vehicle_model.model, 
+                vehicle_model.year, 
+                vehicle_model.km, 
+                vehicle_model.type, 
+                vehicle_model.price, 
+                vehicle_model.brand, 
+                vehicle_model.energy, 
+                vehicle_model.category, 
+                vehicle_model.description,
+            )
+    return Database.query(query, params)
 
-    def _create(self, vehicle_model = VehicleModel):
-        return self.db.query(f"""
-                             INSERT INTO vehicle (model, year, km, type, price, brand, energy, category, description) 
-                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                             RETURNING id, model, year, km, type, price, brand, energy, category, description
-                             """, 
-                             [
-                                 vehicle_model.model, 
-                                 vehicle_model.year, 
-                                 vehicle_model.km, 
-                                 vehicle_model.type, 
-                                 vehicle_model.price, 
-                                 vehicle_model.brand, 
-                                 vehicle_model.energy, 
-                                 vehicle_model.category, 
-                                 vehicle_model.description
-                            ])
+def select_vehicles():
+    query = """
+                SELECT id, model, year, km, type, price, brand, energy, category, description FROM vehicle
+            """
+
+    return Database.query(query)
+
+def update_vehicle_by_id(vehicle_id: int, vehicle_model: VehicleModel):
+    query = """
+                UPDATE vehicle
+                SET model = %s, year = %s, km = %s, type = %s, price =%s, brand =%s, energy = %s, category = %s, description = %s
+                WHERE id = %s
+                RETURNING id, model, year, km, type, price, brand, energy, category, description
+            """
+    params = (
+                vehicle_model.model, 
+                vehicle_model.year, 
+                vehicle_model.km, 
+                vehicle_model.type, 
+                vehicle_model.price, 
+                vehicle_model.brand, 
+                vehicle_model.energy, 
+                vehicle_model.category, 
+                vehicle_model.description,
+                vehicle_id,
+            )
+    return Database.query(query, params)
+
+def delete_vehicle_by_id(vehicle_id: int):
+    query = """
+                DELETE FROM vehicle
+                WHERE id = %s
+            """
     
-    def get_vehicles(self):
-        return self.db.query("SELECT id, model, year, km, type, price, brand, energy, category, description FROM vehicle")
+    params = (vehicle_id,)
+
+    return Database.query(query, params)
+
