@@ -53,3 +53,15 @@ def create_transaction(transaction: TransactionModel):
     result = Database.query(query, params)
 
     return result if result else None
+
+
+def delete_transaction(id: int):
+    query = """
+        DELETE FROM transaction WHERE id = %s;
+    """ 
+    
+    params = (id,)
+
+    result = Database.query(query, params)
+
+    return result if result else None
