@@ -5,51 +5,45 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Database:
+    conn = None
+    cur = None
+
     def __init__(self):
-        self.dbname = os.getenv("DB_NAME")
-        self.user = os.getenv("DB_USER")
-        self.password = os.getenv("DB_PASSWORD")
-        self.host = os.getenv("DB_HOST")
-        self.port = os.getenv("DB_PORT")
+        if Database.conn is None:
+            self.dbname = os.getenv("DB_NAME")
+            self.user = os.getenv("DB_USER")
+            self.password = os.getenv("DB_PASSWORD")
+            self.host = os.getenv("DB_HOST")
+            self.port = os.getenv("DB_PORT")
+            self._connect()
 
     def _connect(self):
         try:
-            conn = psycopg2.connect(
+            Database.conn = psycopg2.connect(
                 dbname=self.dbname,
                 user=self.user,
                 password=self.password,
                 host=self.host,
                 port=self.port
             )
-            cur = conn.cursor()
-            return conn, cur
+            Database.conn.autocommit = True
+            Database.cur = Database.conn.cursor()
+        except psycopg2.OperationalError as e:
+            raise ConnectionError(f"Database connection error: {e}")
         except Exception as e:
-            print(f"Database connection error : {e}")
-            return None, None
+            raise RuntimeError(f"An unexpected error occurred while connecting to the database: {e}")
 
-    def _execute(self, query, params=None, fetch=False):
-        conn, cur = self._connect()
-        if not conn:
-            return None
+    @classmethod
+    def query(cls, query, params=None):
+        if cls.conn is None or cls.cur is None:
+            db_instance = cls()
+            db_instance._connect()
 
         try:
-            cur.execute(query, params)
-            if fetch:
-                result = cur.fetchall()
-            else:
-                conn.commit()
-                result = None
+            cls.cur.execute(query, params)
+            if query.strip().lower().startswith("select"):
+                return cls.cur.fetchall()
+        except psycopg2.Error as e:
+            raise RuntimeError(f"Query execution error: {e}")
         except Exception as e:
-            print(f"Error while executing query : {e}")
-            result = None
-        finally:
-            cur.close()
-            conn.close()
-        
-        return result
-
-    def query(self, query, params=None):
-        if query.strip().lower().startswith("select"):
-            return self._execute(query, params, fetch=True)
-        else:
-            self._execute(query, params)
+            raise RuntimeError(f"An unexpected error occurred while executing the query: {e}")
