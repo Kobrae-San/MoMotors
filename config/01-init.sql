@@ -37,7 +37,9 @@ CREATE TABLE "vehicle" (
   "brand" brand,
   "energy" energy,
   "category" category,
-  "description" VARCHAR(255)
+  "description" VARCHAR(255),
+  "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE "transaction" (
