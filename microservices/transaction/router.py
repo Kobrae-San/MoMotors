@@ -3,7 +3,6 @@ from pydantic import ValidationError
 from typing import Union, Optional
 from controller import get_transactions, patch_transaction_status, create
 from shared.models.transaction import TransactionModel
-from datetime import datetime, date
 
 router = APIRouter()
 
@@ -17,8 +16,4 @@ def transaction_status(id: int, transaction: TransactionModel): #Route admin
 
 @router.post("/create")
 async def post_transaction(transaction: TransactionModel):
-    try:
-        return create(transaction)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return create(transaction)
