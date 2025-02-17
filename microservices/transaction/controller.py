@@ -12,6 +12,6 @@ def create(transaction):
     created_transaction = create_transaction(transaction)
 
     if created_transaction is not None:
-        return {"message": "Transaction créée", "transaction_id": created_transaction}
+        return {"success": True, "message": f"Transaction ID is created : {created_transaction}"}
     else:
-        return {"message": "Échec de la création de la transaction"}
+        return {"success": False, "message": "Transaction creation failed"}

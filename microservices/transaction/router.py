@@ -16,40 +16,9 @@ def transaction_status(id: int, transaction: TransactionModel): #Route admin
     return patch_transaction_status(id, transaction.status)
 
 @router.post("/create")
-async def post_transaction(
-    id_vehicle: Union[int, None] = Form(None),
-    id_user: Union[int, None] = Form(None),
-    status: str = Form(...),
-    id_admin: Union[int, None] = Form(None),
-    validated_at: Optional[str] = Form(None),
-    # validated_at: Union[str, None] = Form(None),
-    start_time: Union[str, None] = Form(None),
-    end_time: Union[str, None] = Form(None)
-):
+async def post_transaction(transaction: TransactionModel):
     try:
-        
-        if validated_at == "None" or validated_at == "":
-            validated_at = None
-        elif validated_at:
-            try:
-                # Convertir la chaîne en datetime
-                validated_at = datetime.fromisoformat(validated_at)
-            except ValueError:
-                raise HTTPException(status_code=400, detail="validated_at must be a valid datetime string")
-
-        transaction = TransactionModel(
-            id_vehicle=id_vehicle,
-            id_user=id_user,
-            status=status,
-            id_admin=id_admin,
-            validated_at=validated_at,
-            start_time=start_time,
-            end_time=end_time
-        )
-
         return create(transaction)
 
-    except ValidationError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail="Format de date invalide")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
