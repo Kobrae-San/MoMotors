@@ -28,3 +28,14 @@ def fetch_transactions():
     query += ' ORDER BY t.status'
 
     return Database.query(query, params)
+
+def update_transaction_status(id: int, status: str):
+    id_admin = 1 # Remplacer par l'ID de l'admin
+    query = '''
+        UPDATE transaction
+        SET id_admin = %s, status = %s
+        WHERE id = %s;
+    '''
+    params = (id_admin, status, id)
+
+    return Database.query(query, params)
