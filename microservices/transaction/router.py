@@ -3,7 +3,6 @@ from pydantic import ValidationError
 from typing import Union, Optional
 from controller import get_transactions, patch_transaction_status, create
 from shared.models.transaction import TransactionModel
-from datetime import datetime, date
 
 router = APIRouter()
 
