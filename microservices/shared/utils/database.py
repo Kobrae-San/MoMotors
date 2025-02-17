@@ -52,7 +52,7 @@ class Database:
                 cls.conn.commit()
                 result = cls.cur.fetchone()  # Récupère la première ligne (ID retourné par RETURNING)
                 if result:
-                    return result[0]  # Retourner l'ID de la première colonne (0 index)
+                    return result  # Retourner l'ID de la première colonne (0 index)
                 else:
                     return None
                 
