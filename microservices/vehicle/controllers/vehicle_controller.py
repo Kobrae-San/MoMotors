@@ -1,19 +1,16 @@
 from fastapi import HTTPException
-from services.vehicle_service import VehicleService
+from services.vehicle_service import create_vehicle_service, get_all_vehicles_service, update_vehicle_service, delete_vehicle_service
 from shared.models.vehicle import VehicleModel
 
-class VehicleController:
-    def __init__(self, service: VehicleService):
-        self.service = service
+def create_vehicle_controller(vehicle_model: VehicleModel):
+    return { "success": True,  "data": create_vehicle_service(vehicle_model)}
 
-    async def create_vehicle(self, vehicle_model: VehicleModel):
-        try:
-            return self.service.create_vehicle(vehicle_model)
-        except:
-            raise HTTPException(400, "Error while adding vehicle.")
+def get_all_vehicles_controller():
+    return {"success": True, "data": get_all_vehicles_service()}
 
-    async def get_all_vehicles(self):
-        try:
-            return self.service.get_all_vehicles()
-        except:
-            raise HTTPException(400, "Error while retrieving vehicle.")
+def update_vehicle_controller(vehicle_id: int, vehicle_model: VehicleModel):
+    return { "success": True, "data": update_vehicle_service(vehicle_id, vehicle_model)}
+
+def delete_vehicle_controller(vehicle_id: int):
+    delete_vehicle_service(vehicle_id)
+    return { "sucess" : True, "message": "Vehicle sucessfully deleted" }
