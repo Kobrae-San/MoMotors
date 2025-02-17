@@ -1,0 +1,25 @@
+meta {
+  name: Update Vehicle
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3003/vehicle/update/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "model": "Clio",
+      "year": 2022,
+      "km": 15000,
+      "type": "Vente",
+      "price": 12000,
+      "brand": "Renault",
+      "energy": "Essence",
+      "category": "Citadine",
+      "description": "Petite voiture économique et fiable."
+  }
+}
