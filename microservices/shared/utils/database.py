@@ -43,9 +43,22 @@ class Database:
 
         try:
             cls.cur.execute(query, params)
+
             if query.strip().lower().startswith("select"):
                 return [dict(row) for row in cls.cur.fetchall()]
+            
+            # pour INSERT UPDATE OU DELETE
+            if "RETURNING" in query:
+                cls.conn.commit()
+                result = cls.cur.fetchone()  # Récupère la première ligne (ID retourné par RETURNING)
+                if result:
+                    return result[0]  # Retourner l'ID de la première colonne (0 index)
+                else:
+                    return None
+                
         except psycopg2.Error as e:
+            cls.conn.rollback()
             raise RuntimeError(f"Query execution error: {e}")
         except Exception as e:
+            cls.conn.rollback()
             raise RuntimeError(f"An unexpected error occurred while executing the query: {e}")

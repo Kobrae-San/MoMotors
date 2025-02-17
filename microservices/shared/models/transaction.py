@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime, date
 from typing import Optional, Literal
 
+
 class TransactionModel(BaseModel):
     id: Optional[int] = None
     id_vehicle: Optional[int] = None
