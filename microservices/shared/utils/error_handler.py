@@ -25,8 +25,6 @@ async def query_error_handler(request: Request, exc: Exception):
         content={"success": False, "message": f"Query execution error: {exc}"}
     )
 
-
-# Fonction pour ajouter tous les gestionnaires d'erreurs à l'application FastAPI
 def add_error_handlers(app):
     app.add_exception_handler(404, not_found_handler)
     app.add_exception_handler(500, internal_error_handler)
