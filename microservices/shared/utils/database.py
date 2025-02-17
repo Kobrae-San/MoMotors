@@ -54,16 +54,6 @@ class Database:
                 else:
                     return None
             
-            
-            # pour INSERT UPDATE OU DELETE
-            if "RETURNING" in query:
-                cls.conn.commit()
-                result = cls.cur.fetchone()  # Récupère la première ligne (ID retourné par RETURNING)
-                if result:
-                    return result[0]  # Retourner l'ID de la première colonne (0 index)
-                else:
-                    return None
-            
         except psycopg2.Error as e:
             cls.conn.rollback()
             raise RuntimeError(f"Query execution error: {e}")

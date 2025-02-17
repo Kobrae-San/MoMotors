@@ -1,6 +1,4 @@
-from repository import fetch_transactions, create_transaction
-from typing import Union, update_transaction_status, create_transaction
-from typing import Union
+from repository import fetch_transactions, update_transaction_status, create_transaction
 
 def get_transactions():
     results = fetch_transactions()
