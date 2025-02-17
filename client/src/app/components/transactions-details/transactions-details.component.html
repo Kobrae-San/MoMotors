@@ -1,0 +1,53 @@
+<p-dialog
+  header="Détails du dossier"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '70%' }">
+  <div class="p-fluid">
+    <div class="info-section">
+      <h3>Informations Générales</h3>
+      <div class="info-item">
+        <span class="label">ID du dossier :</span>
+        <span class="value">{{ transaction?.id }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Statut :</span>
+        <p-tag
+          [value]="transaction?.status"
+          [severity]="getStatus(transaction?.status)"></p-tag>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>Véhicule</h3>
+      <div class="info-item">
+        <span class="label">ID :</span>
+        <span class="value">{{ transaction?.id_vehicle }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Marque :</span>
+        <span class="value">{{ transaction?.brand || "Non renseigné" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Modèle :</span>
+        <span class="value">{{ transaction?.model }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Prix :</span>
+        <span class="value">{{ transaction?.price }} €</span>
+      </div>
+    </div>
+
+    <div class="info-section" *ngIf="transaction?.type === 'Location'">
+      <h3>Durée de Location</h3>
+      <div class="info-item">
+        <span class="label">Début :</span>
+        <span class="value">{{ transaction?.start_time || "N/A" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Fin :</span>
+        <span class="value">{{ transaction?.end_time || "N/A" }}</span>
+      </div>
+    </div>
+  </div>
+</p-dialog>
