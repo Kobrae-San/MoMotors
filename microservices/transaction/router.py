@@ -16,8 +16,4 @@ def transaction_status(id: int, transaction: TransactionModel): #Route admin
 
 @router.post("/create")
 async def post_transaction(transaction: TransactionModel):
-    try:
-        return create(transaction)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return create(transaction)
