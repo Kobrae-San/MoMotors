@@ -51,6 +51,5 @@ def create_transaction(transaction: TransactionModel):
     params = (transaction.id_vehicle, transaction.id_user, transaction.status, transaction.id_admin, transaction.validated_at, transaction.start_time, transaction.end_time)
 
     result = Database.query(query, params)
-    if result:
-        print(f"Transaction created with ID: {result}")
+
     return result if result else None
