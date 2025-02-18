@@ -5,22 +5,22 @@
         <img
           alt="Image du véhicule"
           class="w-full h-48 object-cover object-center"
-          [src]="car.imageUrl" />
+          [src]="imageUrl()" />
         <span
           class="absolute top-2 right-2 px-3 py-1 text-sm font-semibold text-white rounded-md">
-          {{ car.type === "vente" ? "Vente" : "Location" }}
+          {{
+            type() === vehicleType.Sale ? vehicleType.Sale : vehicleType.Rental
+          }}
         </span>
       </div>
     </ng-template>
 
-    <ng-template #title> {{ car.model }} - {{ car.brand }} </ng-template>
+    <ng-template #title>{{ model() }} - {{ brand() }}</ng-template>
 
-    <ng-template #subtitle>
-      Année: {{ car.year }} | {{ car.km }} KM
-    </ng-template>
+    <ng-template #subtitle>Année: {{ year() }} | {{ km() }} KM</ng-template>
 
     <p class="text-lg font-semibold text-gray-800">
-      Prix: {{ car.price | currency: "EUR" }}
+      Prix: {{ price() | currency: "EUR" }}
     </p>
 
     <ng-template #footer>
@@ -30,8 +30,12 @@
           severity="secondary"
           class="w-full"
           [outlined]="true"
+          styleClass="w-full"
+          (onClick)="goToDetails()" />
+        <p-button
+          label="Faire une demande"
+          class="w-full"
           styleClass="w-full" />
-        <!--        <p-button label="Acheter" class="w-full" styleClass="w-full" />-->
       </div>
     </ng-template>
   </p-card>

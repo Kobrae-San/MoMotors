@@ -1,0 +1,68 @@
+<p-button
+  class="ml-4"
+  icon="pi pi-chevron-left"
+  severity="secondary"
+  (onClick)="goBack()"
+  aria-label="Retour" />
+
+<div class="container-1">
+  <div class="gallery-section">
+    <p-galleria
+      [value]="images"
+      [numVisible]="5"
+      [circular]="true"
+      [showItemNavigators]="true"
+      [showThumbnails]="false">
+      <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" />
+      </ng-template>
+    </p-galleria>
+  </div>
+  <div class="details-container">
+    <div class="info-section">
+      <p-card>
+        <ng-template pTemplate="header">
+          <div class="flex gap-2 m-4 items-center">
+            <i class="pi pi-car"></i>
+            <h3>{{ vehicle.model }} - {{ vehicle.brand }}</h3>
+            <p-tag
+              [severity]="getType(vehicle.type)"
+              [value]="vehicle.type"></p-tag>
+          </div>
+          <p-divider />
+        </ng-template>
+        <p>
+          <strong>Prix :</strong>
+          {{ vehicle.price | currency: "EUR" }}
+        </p>
+      </p-card>
+    </div>
+
+    <div class="characteristic-section">
+      <p-card header="Caractéristiques">
+        <div class="icon-label">
+          <i class="fa-duotone fa-solid fa-calendar-days"></i>
+          <p class="m-0">{{ vehicle.year }}</p>
+        </div>
+        <div class="icon-label">
+          <i class="fa-duotone fa-solid fa-gauge"></i>
+          <p class="m-0">{{ vehicle.km }} km</p>
+        </div>
+        <div class="icon-label">
+          <i class="fa-duotone fa-solid fa-bolt"></i>
+          <p class="m-0">{{ vehicle.energy }}</p>
+        </div>
+      </p-card>
+    </div>
+    <div class="description-section">
+      <p-card header="Description">
+        <p class="m-0">{{ vehicle.description }}</p>
+      </p-card>
+    </div>
+    <p-button
+      label="Faire une demande"
+      class="w-full"
+      styleClass="w-full"
+      (onClick)="requestFile()" />
+  </div>
+</div>
