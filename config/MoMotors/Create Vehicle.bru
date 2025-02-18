@@ -1,0 +1,25 @@
+meta {
+  name: Create Vehicle
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3003/vehicle/create/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "model": "Qashqai",
+    "year": 2010,
+    "km": 70000,
+    "type": "Vente",
+    "price": 18990,
+    "brand": "Nissan",
+    "energy": "Diesel",
+    "category": "SUV",
+    "description": "Un SUV fiable avec une bonne consommation de carburant."
+  }
+}
