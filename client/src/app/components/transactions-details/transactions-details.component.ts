@@ -18,7 +18,6 @@ export class TransactionsDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.transaction = this.config.data.transaction;
-    console.log(this.transaction);
   }
 
   getStatus(status: string) {
