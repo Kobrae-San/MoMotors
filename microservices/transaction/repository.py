@@ -6,7 +6,7 @@ def fetch_transactions():
         SELECT
             t.id, t.status, t.validated_at,
             u.firstname, u.lastname,
-            v.id id_vehicle, v.model, v.price, v.type,
+            v.id id_vehicle, v.brand, v.model, v.price, v.type,
             CASE
                 WHEN v.type = 'Location' THEN t.start_time
                 ELSE NULL
@@ -49,6 +49,18 @@ def create_transaction(transaction: TransactionModel):
     """
 
     params = (transaction.id_vehicle, transaction.id_user, transaction.status, transaction.id_admin, transaction.validated_at, transaction.start_time, transaction.end_time)
+
+    result = Database.query(query, params)
+
+    return result if result else None
+
+
+def delete_transaction(id: int):
+    query = """
+        DELETE FROM transaction WHERE id = %s;
+    """ 
+    
+    params = (id,)
 
     result = Database.query(query, params)
 

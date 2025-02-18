@@ -1,0 +1,53 @@
+.info-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  
+    h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  
+    &:last-child {
+      border-bottom: none;
+    }
+  
+    .label {
+      font-weight: 600;
+      color: #555;
+    }
+  
+    .value {
+      font-weight: 500;
+      color: #222;
+    }
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+  
+  
