@@ -27,6 +27,15 @@ def select_vehicles():
 
     return Database.query(query)
 
+def select_vehicle_by_id(vehicle_id: int):
+    query = """
+                SELECT id, model, year, km, type, price, brand, energy, category, description FROM vehicle
+                WHERE id = %s
+            """
+    params = (vehicle_id,)
+
+    return Database.query(query, params)
+
 def update_vehicle_by_id(vehicle_id: int, vehicle_model: VehicleModel):
     query = """
                 UPDATE vehicle
