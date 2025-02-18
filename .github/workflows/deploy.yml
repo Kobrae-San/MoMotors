@@ -33,6 +33,7 @@ jobs:
           sudo echo "POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}" >> .env
           sudo echo "POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}" >> .env
           sudo echo "POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}" >> .env
+          
           docker-compose down
           docker-compose build
         EOF
