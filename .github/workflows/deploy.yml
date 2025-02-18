@@ -22,8 +22,8 @@ jobs:
 
     - name: Deploy with Docker Compose
       run: |
-        ssh ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
-          cd /home/ubuntu/MoMotors
+        ssh -i ~/ssh/id_rsa ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
+          cd MoMotors
           sudo git pull origin main
 
           sudo export POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }}
