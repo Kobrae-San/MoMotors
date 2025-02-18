@@ -6,7 +6,7 @@ def fetch_transactions():
         SELECT
             t.id, t.status, t.validated_at,
             u.firstname, u.lastname,
-            v.id id_vehicle, v.model, v.price, v.type,
+            v.id id_vehicle, v.brand, v.model, v.price, v.type,
             CASE
                 WHEN v.type = 'Location' THEN t.start_time
                 ELSE NULL

@@ -73,6 +73,7 @@ export class TransactionsComponent implements OnInit {
       header: "Gestion de dossiers",
       width: "50%",
       contentStyle: { "max-height": "500px", overflow: "auto" },
+      closable: true,
       data: {
         transaction: this.selectedTransaction,
       },
