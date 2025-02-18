@@ -1,11 +1,11 @@
 meta {
-  name: Create Vehicles
+  name: Create Vehicle
   type: http
   seq: 3
 }
 
 post {
-  url: http://localhost:3003/vehicle/create/
+  url: http://localhost:3003/vehicle/create/2
   body: json
   auth: none
 }
@@ -13,7 +13,7 @@ post {
 body:json {
   {
     "model": "Qashqai",
-    "year": 2017,
+    "year": 2010,
     "km": 70000,
     "type": "Vente",
     "price": 18990,
