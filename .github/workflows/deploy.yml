@@ -25,7 +25,15 @@ jobs:
         ssh ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
           cd /home/ubuntu/MoMotors
           sudo git pull origin main
+
+          # Export the secrets to the environment for Docker Compose
+          export POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }}
+          export POSTGRES_DB_USER=${{ secrets.POSTGRES_DB_USER }}
+          export POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}
+          export POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}
+          export POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}
+
+          # Down and Up with Docker Compose to rebuild and restart services
           docker-compose down
           docker-compose up -d --build
         EOF
-
