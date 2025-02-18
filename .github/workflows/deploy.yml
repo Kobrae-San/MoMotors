@@ -23,8 +23,8 @@ jobs:
     - name: Deploy with Docker Compose
       run: |
         ssh ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
-          cd /home/ubuntu/mon-projet
-          git pull origin main
+          cd /home/ubuntu/MoMotors
+          sudo git pull origin main
           docker-compose down
           docker-compose up -d --build
         EOF
