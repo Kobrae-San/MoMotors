@@ -32,6 +32,6 @@ jobs:
           export POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}
           export POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}
 
-          sudo -E docker-compose down
-          sudo -E docker-compose up -d --build
+          docker-compose down
+          docker-compose up -d --build
         EOF
