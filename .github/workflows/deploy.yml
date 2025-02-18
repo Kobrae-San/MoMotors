@@ -22,7 +22,7 @@ jobs:
 
     - name: Deploy with Docker Compose
       run: |
-        ssh -i ~/ssh/id_rsa ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
+        ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
           cd MoMotors
           sudo git pull origin main
 
