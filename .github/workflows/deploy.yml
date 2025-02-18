@@ -26,12 +26,5 @@ jobs:
           cd MoMotors
           sudo git pull origin main
 
-          sudo export POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }}
-          sudo export POSTGRES_DB_USER=${{ secrets.POSTGRES_DB_USER }}
-          sudo export POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}
-          sudo export POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}
-          sudo export POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}
-
-          docker-compose down
-          docker-compose up -d --build
+          sudo -E bash -c 'export POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }} && export POSTGRES_DB_USER=${{ secrets.POSTGRES_DB_USER }} && export POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }} && export POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }} && export POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }} && docker-compose down && docker-compose up -d --build'
         EOF
