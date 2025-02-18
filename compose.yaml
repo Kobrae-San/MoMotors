@@ -1,7 +1,6 @@
 services:
   database:
     image: postgres:17.2
-    restart: always
     env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_DB_USER}
