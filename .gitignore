@@ -16,7 +16,7 @@ nosetests.xml
 coverage.xml
 *,cover
 *.log
-.git*
+.git
 tests
 scripts
 postman
