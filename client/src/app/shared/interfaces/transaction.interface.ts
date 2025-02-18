@@ -1,5 +1,7 @@
-export interface Transaction {
-  id: number;
+import { TransactionStatus } from "../enums/transaction.enum";
+
+export default interface Transaction {
+  id?: number;
   id_vehicle: number;
   id_user: number;
   status: TransactionStatus;
@@ -9,10 +11,4 @@ export interface Transaction {
   validated_at: Date;
   start_time: Date;
   end_time: Date;
-}
-
-export enum TransactionStatus {
-  VALID = "Validé",
-  REFUSE = "Refusé",
-  WAITING = "En attente",
 }
