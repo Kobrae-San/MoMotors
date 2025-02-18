@@ -3,3 +3,26 @@
 @use 'primeicons/primeicons.css';
 
 @theme {  --color-purple: var(--primary);}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+app-footer {
+  width: 100%; 
+}

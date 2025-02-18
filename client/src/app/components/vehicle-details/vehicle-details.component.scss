@@ -1,0 +1,41 @@
+.container-1 {
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+  align-items: center;
+  justify-content: center;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.gallery-section {
+  height: auto;
+  width: 60%;
+}
+
+.info-section, 
+.characteristic-section, 
+.description-section {
+  width: 100%;
+  max-width: 350px;
+}
+
+.description-section p-card {
+  max-width: 300px;
+}
+
+p-divider {
+  margin-bottom: 0;
+}
+
+.icon-label {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
