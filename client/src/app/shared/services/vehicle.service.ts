@@ -1,91 +1,108 @@
 import { Injectable } from "@angular/core";
-import {
-  VehicleBrand,
-  VehicleCategory,
-  VehicleEnergy,
-  VehicleType,
-} from "../enums/vehicle.enum";
+import Vehicle from "../interfaces/vehicle.interface";
 
 @Injectable({
   providedIn: "root",
 })
 export class VehicleService {
-  public cars = [
-    {
-      id: 1,
-      model: "Model Y",
-      brand: VehicleBrand.Tesla,
-      year: 2022,
-      km: 15_000,
-      price: 42_500,
-      type: VehicleType.Sale,
-      imageUrl:
-        "https://images.pexels.com/photos/30306584/pexels-photo-30306584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      energy: VehicleEnergy.Electric,
-      category: VehicleCategory.SUV,
-      description:
-        "Tesla Model Y, entièrement électrique, avec une autonomie de 500 km. En excellent état, peu de kilomètres parcourus.",
-    },
-    {
-      id: 2,
-      model: "208",
-      brand: VehicleBrand.Peugeot,
-      year: 2018,
-      km: 5_000,
-      price: 2_500,
-      type: VehicleType.Rental,
-      imageUrl:
-        "https://images.pexels.com/photos/18471354/pexels-photo-18471354/free-photo-of-voiture-vehicule-parking-transport.jpeg",
-    },
-    {
-      id: 3,
-      model: "500",
-      brand: VehicleBrand.Fiat,
-      year: 2020,
-      km: 7_000,
-      price: 12_500,
-      type: VehicleType.Rental,
-      imageUrl:
-        "https://images.pexels.com/photos/2989652/pexels-photo-2989652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 1,
-      model: "Model Y",
-      brand: VehicleBrand.Tesla,
-      year: 2022,
-      km: 15_000,
-      price: 42_500,
-      type: VehicleType.Sale,
-      imageUrl:
-        "https://images.pexels.com/photos/30306584/pexels-photo-30306584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 2,
-      model: "208",
-      brand: VehicleBrand.Peugeot,
-      year: 2018,
-      km: 5_000,
-      price: 2_500,
-      type: VehicleType.Rental,
-      imageUrl:
-        "https://images.pexels.com/photos/18471354/pexels-photo-18471354/free-photo-of-voiture-vehicule-parking-transport.jpeg",
-    },
-    {
-      id: 3,
-      model: "500",
-      brand: VehicleBrand.Fiat,
-      year: 2020,
-      km: 7_000,
-      price: 12_500,
-      type: VehicleType.Rental,
-      imageUrl:
-        "https://images.pexels.com/photos/2989652/pexels-photo-2989652.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-  ];
+  public apiUrl = "http://localhost:3003";
 
   constructor() {}
 
-  public getAll() {
-    return this.cars;
+  public async getAllVehicles() {
+    try {
+      const response = await fetch(this.apiUrl + "/vehicles");
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des véhicules");
+      }
+      const vehicles = await response.json();
+      return vehicles.data;
+    } catch (error) {
+      console.error("Erreur:", error);
+      return [];
+    }
+  }
+
+  public async getVehicleById(id: number) {
+    try {
+      const response = await fetch(this.apiUrl + "/vehicle/" + id);
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération du vehicule");
+      }
+      const vehicle = await response.json();
+      return vehicle.data;
+    } catch (error) {
+      console.error("Erreur:", error);
+      return [];
+    }
+  }
+
+  public async createVehicle(id_user: number, vehicle: Vehicle) {
+    try {
+      const response = await fetch(`${this.apiUrl}/vehicle/create/${id_user}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(vehicle),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la création du véhicule");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Erreur:", error);
+      return null;
+    }
+  }
+
+  public async updateVehicle(
+    id_vehicle: number,
+    id_user: number,
+    updatedData: any
+  ) {
+    try {
+      const response = await fetch(
+        `${this.apiUrl}/vehicle/${id_vehicle}/update/${id_user}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour du véhicule");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Erreur:", error);
+      return null;
+    }
+  }
+
+  public async deleteVehicle(id_vehicle: number, id_user: number) {
+    try {
+      const response = await fetch(
+        `${this.apiUrl}/vehicle/${id_vehicle}/delete/${id_user}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression du véhicule");
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Erreur:", error);
+      return false;
+    }
   }
 }
