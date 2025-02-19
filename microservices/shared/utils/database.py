@@ -57,8 +57,6 @@ class Database:
                     return None
                 
         except psycopg2.Error as e:
-            cls.conn.rollback()
             raise RuntimeError(f"Query execution error: {e}")
         except Exception as e:
-            cls.conn.rollback()
             raise RuntimeError(f"An unexpected error occurred while executing the query: {e}")
