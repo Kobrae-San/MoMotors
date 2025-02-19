@@ -7,6 +7,8 @@ def get_transactions():
 
 def update(id: int, status: str): #Route admin
     update_transaction_status(id, status)
+    results = fetch_transactions_by_id(id)
+    generate_transaction_pdf = generate_pdf(results[0]) # update pdf for S3
     return {"success": True, "message": f"Transaction status updated to {status}"}
 
 def create(transaction):
