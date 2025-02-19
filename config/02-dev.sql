@@ -1,28 +1,15 @@
-INSERT INTO "employee" (role, email, password, firstname, lastname)
+INSERT INTO "user" (password, firstname, lastname, email, telephone, is_admin)
 VALUES
-    ('IT', 'it.manager1@example.com', 'hashed_password1', 'Alice', 'Dupont'),
-    ('Commercial', 'sales.rep1@example.com', 'hashed_password2', 'Jean', 'Martin'),
-    ('Finance', 'finance.director1@example.com', 'hashed_password3', 'Sophie', 'Lemoine'),
-    ('IT', 'it.manager2@example.com', 'hashed_password4', 'Marc', 'Tremblay'),
-    ('RH', 'rh.manager@example.com', 'hashed_password5', 'Claire', 'Lemoine'),
-    ('Commercial', 'sales.rep2@example.com', 'hashed_password6', 'Antoine', 'Durand'),
-    ('Service après vente', 'sav.manager@example.com', 'hashed_password7', 'François', 'Girard'),
-    ('Finance', 'finance.manager@example.com', 'hashed_password8', 'Élisabeth', 'Moreau'),
-    ('RH', 'rh.assistant@example.com', 'hashed_password9', 'Lucie', 'Lemoine'),
-    ('Commercial', 'sales.representative@example.com', 'hashed_password10', 'Paul', 'Vidal');
-
-INSERT INTO "user" (password, firstname, lastname, email, telephone)
-VALUES
-    ('hashed_password11', 'Thomas', 'Durand', 'thomas.durand@example.com', '0601020304'),
-    ('hashed_password12', 'Emma', 'Leclerc', 'emma.leclerc@example.com', '0611121314'),
-    ('hashed_password13', 'Lucas', 'Bernard', 'lucas.bernard@example.com', '0622232425'),
-    ('hashed_password14', 'Maxime', 'Robert', 'maxime.robert@example.com', '0633344546'),
-    ('hashed_password15', 'Chloé', 'Joubert', 'chloe.joubert@example.com', '0644455657'),
-    ('hashed_password16', 'Pierre', 'Gauthier', 'pierre.gauthier@example.com', '0655566768'),
-    ('hashed_password17', 'Julien', 'Benoit', 'julien.benoit@example.com', '0666677879'),
-    ('hashed_password18', 'Sarah', 'Moulin', 'sarah.moulin@example.com', '0677788990'),
-    ('hashed_password19', 'Victor', 'Lemoine', 'victor.lemoine@example.com', '0688899001'),
-    ('hashed_password20', 'Alice', 'Pires', 'alice.pires@example.com', '0699900112');
+    ('hashed_password11', 'Thomas', 'Durand', 'thomas.durand@example.com', '0601020304', TRUE),
+    ('hashed_password12', 'Emma', 'Leclerc', 'emma.leclerc@example.com', '0611121314', FALSE),
+    ('hashed_password13', 'Lucas', 'Bernard', 'lucas.bernard@example.com', '0622232425', FALSE),
+    ('hashed_password14', 'Maxime', 'Robert', 'maxime.robert@example.com', '0633344546', FALSE),
+    ('hashed_password15', 'Chloé', 'Joubert', 'chloe.joubert@example.com', '0644455657', FALSE),
+    ('hashed_password16', 'Pierre', 'Gauthier', 'pierre.gauthier@example.com', '0655566768', FALSE),
+    ('hashed_password17', 'Julien', 'Benoit', 'julien.benoit@example.com', '0666677879', FALSE),
+    ('hashed_password18', 'Sarah', 'Moulin', 'sarah.moulin@example.com', '0677788990', FALSE),
+    ('hashed_password19', 'Victor', 'Lemoine', 'victor.lemoine@example.com', '0688899001', FALSE),
+    ('hashed_password20', 'Alice', 'Pires', 'alice.pires@example.com', '0699900112', FALSE);
 
 INSERT INTO "vehicle" (model, year, km, type, price, brand, energy, category, description)
 VALUES

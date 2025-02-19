@@ -14,8 +14,5 @@ export class VehiclesListComponent implements OnInit {
   constructor(private vehiclesService: VehicleService) {}
   vehicles: any;
 
-  ngOnInit(): void {
-    this.vehicles = this.vehiclesService.getAll();
-    console.log(this.vehicles);
-  }
+  ngOnInit(): void {}
 }
