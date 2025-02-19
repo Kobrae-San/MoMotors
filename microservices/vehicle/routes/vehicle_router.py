@@ -5,7 +5,7 @@ from controllers.vehicle_controller import create_vehicle_controller, get_all_ve
 
 vehicle_router = APIRouter()
 
-@vehicle_router.get("/vehicle")
+@vehicle_router.get("/vehicles")
 def get_all_vehicles_route():
     return get_all_vehicles_controller()
 

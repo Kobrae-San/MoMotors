@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
-import { VehicleComponent } from "../vehicle/vehicle.component";
+import { PanelModule } from "primeng/panel";
+import { VehiclesListComponent } from "../vehicles-list/vehicles-list.component";
 
 @Component({
   selector: "app-home",
-  imports: [VehicleComponent],
+  imports: [VehiclesListComponent, PanelModule],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.scss",
 })
