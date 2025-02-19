@@ -12,7 +12,7 @@ def update(id: int, status: str): #Route admin
 def create(transaction):
     created_transaction = create_transaction(transaction)
     results = fetch_transactions_by_id(created_transaction)
-    generate_transaction_pdf = generate_pdf(results[0])
+    generate_pdf(results[0])
     return {"success": True, "message": f"Transaction ID is created : {created_transaction}"}
 
 def delete(id):

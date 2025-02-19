@@ -11,14 +11,20 @@ def generate_pdf(data):
     pdf = canvas.Canvas(buffer, pagesize=A4)
     width, height = A4
 
+    filename = f"{data['id']}_transaction.pdf"
+
+    pdf.setTitle(f"{filename}")
+
     # Calcul du prix total
     if data["type"] == "Location":
         start_date = data["start_time"]
         end_date = data["end_time"]
-        nb_jours = (end_date - start_date).days 
-        total_prix = nb_jours * data["price"]
+        nb_days = (end_date - start_date).days 
+        total = nb_days * data["price"]
     else:
-        total_prix = data["price"]
+        total = data["price"]
+
+    formated_total = f"{total:,.2f}".replace(",", " ").replace(".", ",")
 
     # Positionnement des textes
     x_position = 50
@@ -34,10 +40,10 @@ def generate_pdf(data):
     y_position -= 40
 
     pdf.setFont("Helvetica", 12)
-    pdf.drawRightString(width - 50, y_position, f"Date : {data["created_at"].strftime('%d/%m/%Y')}")
-    pdf.drawString(x_position, y_position, f"N° Dossier : {data["id"]}")
+    pdf.drawRightString(width - 50, y_position, f"DATE : {data["created_at"].strftime('%d/%m/%Y')}")
+    pdf.drawString(x_position, y_position, f"CONTRAT N° : {data["id"]}")
     y_position -= line_height
-    pdf.drawString(x_position, y_position, f"Statut du dossier : {data["status"]}")
+    pdf.drawString(x_position, y_position, f"STATUT : {data["status"].upper()}")
 
     divider_y_position = y_position - 15
     pdf.setStrokeColorRGB(0, 0, 0)
@@ -45,7 +51,7 @@ def generate_pdf(data):
     pdf.line(50, divider_y_position, width - 50, divider_y_position)
     y_position -= 40
 
-    # # CLIENT
+    # CLIENT
     pdf.setFont("Helvetica-Bold", 14)
     pdf.drawString(x_position, y_position, "CLIENT :")
     y_position -= line_height + 10
@@ -82,7 +88,7 @@ def generate_pdf(data):
     pdf.line(50, divider_y_position, width - 50, divider_y_position)
     y_position -= 40
 
-    # # VEHICULE
+    # VEHICULE
     pdf.setFont("Helvetica-Bold", 14)
     pdf.drawString(x_position, y_position, "VÉHICULE :")
     y_position -= line_height + 10
@@ -106,8 +112,6 @@ def generate_pdf(data):
         pdf.drawString(x_position, y_position, line)
         y_position -= line_height
 
-    y_position -= 30
-
     divider_y_position = y_position - 10
     pdf.setStrokeColorRGB(0, 0, 0)
     pdf.setLineWidth(0.5)
@@ -120,12 +124,13 @@ def generate_pdf(data):
 
     y_position -= line_height
     if data["type"] == "Location":
-        pdf.drawRightString(width - 50, y_position, f"{nb_jours} jours x {data["price"]:.2f}€ = {total_prix:.2f}€")
+        pdf.drawRightString(width - 50, y_position, f"{nb_days} jours x {data["price"]:.2f}€ = {formated_total}€")
     else :
-        pdf.drawRightString(width - 50, y_position,  f"{total_prix}€")
+        pdf.drawRightString(width - 50, y_position,  f"{formated_total}€")
 
     pdf.showPage()
     pdf.save()
     
     buffer.seek(0)
-    return StreamingResponse(buffer, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=contrat_location.pdf"})
+
+    return StreamingResponse(buffer, media_type="application/pdf", headers={"Content-Disposition": f"inline; filename={filename}"})
