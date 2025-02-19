@@ -1,0 +1,16 @@
+<div class="vehicles-container">
+  @for (vehicle of vehicles; track vehicle.id) {
+    <app-vehicle
+      [id]="vehicle.id"
+      [model]="vehicle.model"
+      [brand]="vehicle.brand"
+      [year]="vehicle.year"
+      [km]="vehicle.km"
+      [price]="vehicle.price"
+      [type]="vehicle.type"
+      [imageUrl]="vehicle.imageUrl"
+      [energy]="vehicle.energy"
+      [category]="vehicle.category"
+      [description]="vehicle.description"></app-vehicle>
+  }
+</div>
