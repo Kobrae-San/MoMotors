@@ -24,7 +24,9 @@ def generate_pdf(data):
     else:
         total = data["price"]
 
+    formated_price = f"{data['price']:.2f}".replace(".", ",")
     formated_total = f"{total:,.2f}".replace(",", " ").replace(".", ",")
+    formated_km = f"{data['km']:,.2f}".replace(",", " ")
 
     # Positionnement des textes
     x_position = 50
@@ -98,7 +100,7 @@ def generate_pdf(data):
     y_position -= line_height
     pdf.drawString(x_position, y_position, f"Année : {data["year"]}")
     y_position -= line_height
-    pdf.drawString(x_position, y_position, f"Kilométrage : {data["km"]} km")
+    pdf.drawString(x_position, y_position, f"Kilométrage : {formated_km} km")
     y_position -= line_height
     pdf.drawString(x_position, y_position, f"Type : {data["type"]}")
     y_position -= line_height
@@ -124,7 +126,7 @@ def generate_pdf(data):
 
     y_position -= line_height
     if data["type"] == "Location":
-        pdf.drawRightString(width - 50, y_position, f"{nb_days} jours x {data["price"]:.2f}€ = {formated_total}€")
+        pdf.drawRightString(width - 50, y_position, f"{nb_days} jours x {formated_price}€ = {formated_total}€")
     else :
         pdf.drawRightString(width - 50, y_position,  f"{formated_total}€")
 
