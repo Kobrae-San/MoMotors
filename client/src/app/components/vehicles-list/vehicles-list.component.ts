@@ -14,5 +14,11 @@ export class VehiclesListComponent implements OnInit {
   constructor(private vehiclesService: VehicleService) {}
   vehicles: any;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getVehicles();
+  }
+
+  async getVehicles() {
+    this.vehicles = await this.vehiclesService.getAllVehicles();
+  }
 }
