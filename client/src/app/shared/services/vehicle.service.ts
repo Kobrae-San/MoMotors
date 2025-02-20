@@ -1,6 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import Vehicle from "../interfaces/vehicle.interface";
 import { HttpClient } from "@angular/common/http";
+import { catchError, throwError } from "rxjs";
 
 interface Response {
   status: string;
@@ -38,9 +39,16 @@ export class VehicleService {
     );
   }
 
-  public deleteVehicle(id_vehicle: number, id_user: number) {
-    return this.http.delete<boolean>(
-      `${this.apiUrl}/vehicle/${id_vehicle}/delete/${id_user}`
-    );
+  public deleteVehicle(id_vehicle: number, id_user: number): any {
+    this.http
+      .delete(`${this.apiUrl}/vehicle/${id_vehicle}/delete/${id_user}`)
+      .subscribe({
+        next: data => {
+          return data;
+        },
+        error: error => {
+          console.error("There was an error!", error);
+        },
+      });
   }
 }
