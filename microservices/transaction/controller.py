@@ -11,7 +11,7 @@ def update(id: int, status: str): #Route admin
     results = fetch_transactions_by_id(id)
     transaction_pdf_bytes = generate_pdf(results[0]) # update pdf for S3
     bucket = Bucket()
-    bucket.write(transaction_pdf_bytes , f"{id}_transaction.pdf")
+    bucket.write("transaction-folders/", transaction_pdf_bytes , f"{id}_transaction.pdf")
     return {"success": True, "message": f"Transaction status updated to {status}"}
 
 def create(transaction):
@@ -19,7 +19,7 @@ def create(transaction):
     results = fetch_transactions_by_id(created_transaction)
     transaction_pdf_bytes  = generate_pdf(results[0])
     bucket = Bucket()
-    bucket.write(transaction_pdf_bytes , f"{created_transaction}_transaction.pdf")
+    bucket.write("transaction-folders/", transaction_pdf_bytes, f"{created_transaction}_transaction.pdf")
     return {"success": True, "message": f"Transaction ID is created : {created_transaction}"}
 
 def delete(id):
