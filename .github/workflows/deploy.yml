@@ -1,4 +1,4 @@
-name: Deploy to AWS Lightsail
+name: Deploy to EC2
 
 on:
   push:
@@ -10,30 +10,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan ${{ secrets.LIGHTSAIL_IP }} >> ~/.ssh/known_hosts
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Deploy with Docker Compose
-      run: |
-        ssh -T ubuntu@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
-          cd MoMotors
-          sudo git pull origin main
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }}" >> .env
+          echo "POSTGRES_DB_USER=${{ secrets.POSTGRES_DB_USER }}" >> .env
+          echo "POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}" >> .env
+          echo "POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}" >> .env
+          echo "POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}" >> .env
 
-          sudo touch .env
-          sudo chmod +w .env
-          sudo echo "POSTGRES_DB_NAME=${{ secrets.POSTGRES_DB_NAME }}" > .env
-          sudo echo "POSTGRES_DB_USER=${{ secrets.POSTGRES_DB_USER }}" >> .env
-          sudo echo "POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}" >> .env
-          sudo echo "POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}" >> .env
-          sudo echo "POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}" >> .env
-          
-          docker-compose down
-          docker-compose build
-        EOF
+      - name: Deploy to EC2 Frontend
+        run: |
+          scp -r client ec2-user@{{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+          scp compose.yaml ec2-user@{{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+          scp .env ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_FRONTEND_IP }} << 'EOF'
+            docker-compose down
+            docker-compose up -d client
+          EOF
+
+      # - name: Deploy to EC2 Transaction
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
+      #       cd /path/to/ms-transaction
+      #       git pull origin main
+      #       docker-compose down
+      #       docker-compose up -d ms-transaction
+      #     EOF
+
+      # - name: Deploy to EC2 User
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} << 'EOF'
+      #       cd /path/to/ms-user
+      #       git pull origin main
+      #       docker-compose down
+      #       docker-compose up -d ms-user
+      #     EOF
+
+      # - name: Deploy to EC2 Vehicle
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} << 'EOF'
+      #       cd /path/to/ms-vehicle
+      #       git pull origin main
+      #       docker-compose down
+      #       docker-compose up -d ms-vehicle
+      #     EOF
