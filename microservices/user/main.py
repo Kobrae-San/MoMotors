@@ -1,7 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 
-from shared.utils.auth import Auth, authenticate
+from shared.utils.auth import Auth, authenticate, UserRegistration, create_user
 from shared.utils.database import Database
 
 app = FastAPI()
@@ -21,3 +21,11 @@ def read_item(item_id: int, q: Union[str, None] = None):
 def login(request: Auth):
     token = authenticate(request.username, request.password, request.new_password)
     return {"access_token": token}
+
+@app.post("/register")
+def register(request: UserRegistration):
+    user_id = create_user(
+        username=request.username,
+        password=request.password,
+    )
+    return {"user_id": user_id, "message": "Utilisateur créé avec succès"}
