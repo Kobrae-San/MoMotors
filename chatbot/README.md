@@ -6,7 +6,7 @@ Utilise le modele llama3 et peut accepter des fichiers de Google Drive en tant q
 
 - Python3
 - Ollama (Installer _[ici](https://ollama.com/download)_)
-- Avoir un Bucket S3 avec
+(- Avoir un Bucket S3 avec pour branche celles définies "transaction-folders/")
 
 ## Setup
 
