@@ -1,6 +1,5 @@
+import { NgIf } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
-import { SelectModule } from "primeng/select";
-import { TextareaModule } from "primeng/textarea";
 import {
   FormBuilder,
   FormGroup,
@@ -8,17 +7,16 @@ import {
   Validators,
 } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
-import {
-  VehicleType,
-  VehicleBrand,
-  VehicleEnergy,
-  VehicleCategory,
-} from "../../shared/enums/vehicle.enum";
-import { NgIf } from "@angular/common";
-import { create } from "domain";
-import { VehicleService } from "../../shared/services/vehicle.service";
-import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { SelectModule } from "primeng/select";
+import { TextareaModule } from "primeng/textarea";
+import {
+  VehicleBrand,
+  VehicleCategory,
+  VehicleEnergy,
+  VehicleType,
+} from "../../shared/enums/vehicle.enum";
+import { VehicleService } from "../../shared/services/vehicle.service";
 
 @Component({
   selector: "app-vehicle-add",
@@ -29,7 +27,6 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
     ReactiveFormsModule,
     NgIf,
   ],
-  providers: [MessageService],
   templateUrl: "./vehicle-add.component.html",
   styleUrl: "./vehicle-add.component.scss",
 })
@@ -44,7 +41,6 @@ export class VehicleAddComponent implements OnInit {
   /** SERVICES */
   private fb = inject(FormBuilder);
   private vehicleService = inject(VehicleService);
-  private messageService = inject(MessageService);
   private ref = inject(DynamicDialogRef);
 
   constructor() {
@@ -84,26 +80,9 @@ export class VehicleAddComponent implements OnInit {
         category: this.form.value.category.name,
         description: this.form.value.description,
       };
-      this.vehicleService.createVehicle(1, dataToSend).subscribe(
-        () => {
-          this.messageService.add({
-            severity: "success",
-            summary: "Suppression",
-            detail: `Le véhicule a bien été ajouté à la base de donnée.`,
-            life: 3000,
-          });
-          this.ref.close();
-        },
-        error => {
-          this.messageService.add({
-            severity: "error",
-            summary: "Erreur",
-            detail:
-              "Une erreur est survenue lors de l'ajout du véhicule dans la base de donnée.",
-            life: 3000,
-          });
-        }
-      );
+      this.vehicleService.createVehicle(1, dataToSend).subscribe(() => {
+        this.ref.close();
+      });
     } else {
       console.log("Le formulaire est invalide !");
     }
