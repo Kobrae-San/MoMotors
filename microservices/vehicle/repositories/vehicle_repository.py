@@ -23,6 +23,7 @@ def insert_vehicle(vehicle_model = VehicleModel):
 def select_vehicles():
     query = """
                 SELECT id, model, year, km, type, price, brand, energy, category, description FROM vehicle
+                ORDER BY created_at
             """
 
     return Database.query(query)
