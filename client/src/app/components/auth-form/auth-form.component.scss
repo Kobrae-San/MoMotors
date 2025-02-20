@@ -1,0 +1,29 @@
+:host ::ng-deep {
+  .p-tabview-nav {
+    justify-content: center;
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .p-inputtext,
+  .p-password {
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  small.p-error {
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  .p-button-width button {
+    width: 100%;
+  }
+}

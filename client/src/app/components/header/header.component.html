@@ -15,8 +15,14 @@
       class="nav-link text-sm">
       Dashboard
     </a>
-    <a routerLink="/login" routerLinkActive="active" class="nav-link text-sm">
-      Connexion / Inscription
-    </a>
+    <p-button
+      (onClick)="openAuthForm()"
+      [label]="isLogin ? 'Connexion' : 'Inscription'"></p-button>
   </nav>
 </header>
+
+<app-auth-form
+  *ngIf="showAuthForm"
+  (close)="closeAuthForm()"
+  [isLogin]="isLogin"
+  (toggle)="toggleAuthMode()"></app-auth-form>
