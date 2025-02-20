@@ -33,7 +33,6 @@ export class VehicleDetailsComponent {
     const navigation = this.router.getCurrentNavigation();
     this.vehicle = navigation?.extras.state?.["vehicle"] ?? null;
     this.loadImages();
-    console.log(this.vehicle);
   }
 
   loadImages() {

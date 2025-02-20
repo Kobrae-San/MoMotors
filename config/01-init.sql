@@ -44,9 +44,23 @@ CREATE TABLE "transaction" (
   "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE "transaction" ADD FOREIGN KEY ("id_vehicle") REFERENCES "vehicle" ("id");
-ALTER TABLE "transaction" ADD FOREIGN KEY ("id_user") REFERENCES "user" ("id");
-ALTER TABLE "transaction" ADD FOREIGN KEY ("id_admin") REFERENCES "user" ("id");
+ALTER TABLE "transaction" 
+ADD CONSTRAINT "transaction_id_vehicle_fkey" 
+FOREIGN KEY ("id_vehicle") 
+REFERENCES "vehicle" ("id") 
+ON DELETE CASCADE;
+
+ALTER TABLE "transaction" 
+ADD CONSTRAINT "transaction_id_user_fkey" 
+FOREIGN KEY ("id_user") 
+REFERENCES "user" ("id") 
+ON DELETE CASCADE;
+
+ALTER TABLE "transaction" 
+ADD CONSTRAINT "transaction_id_admin_fkey" 
+FOREIGN KEY ("id_admin") 
+REFERENCES "user" ("id") 
+ON DELETE CASCADE;
 
 CREATE OR REPLACE FUNCTION update_timestamp()
 RETURNS TRIGGER AS $$

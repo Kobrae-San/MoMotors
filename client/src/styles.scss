@@ -1,11 +1,13 @@
+@use "primeicons/primeicons.css";
 @use "tailwindcss";
 @use "app/styles/variables";
-@use 'primeicons/primeicons.css';
 
-@theme {  --color-purple: var(--primary);}
+@theme {
+  --color-purple: var(--primary);
+}
 
-
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -24,5 +26,5 @@ main {
 }
 
 app-footer {
-  width: 100%; 
+  width: 100%;
 }
