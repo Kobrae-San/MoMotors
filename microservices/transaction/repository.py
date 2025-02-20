@@ -5,7 +5,7 @@ def fetch_transactions():
     query = '''
         SELECT
             t.id, t.status, t.validated_at,
-            u.firstname, u.lastname,
+            u.firstname, u.lastname, u.id id_user,
             v.id id_vehicle, v.brand, v.model, v.price, v.type,
             CASE
                 WHEN v.type = 'Location' THEN t.start_time
