@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+from psycopg2.extras import DictCursor
 
 load_dotenv()
 
@@ -24,7 +25,8 @@ class Database:
                 user=self.user,
                 password=self.password,
                 host=self.host,
-                port=self.port
+                port=self.port,
+                cursor_factory=DictCursor
             )
             Database.conn.autocommit = True
             Database.cur = Database.conn.cursor()
@@ -41,9 +43,22 @@ class Database:
 
         try:
             cls.cur.execute(query, params)
+
             if query.strip().lower().startswith("select"):
-                return cls.cur.fetchall()
+                return [dict(row) for row in cls.cur.fetchall()]
+            
+            # pour INSERT UPDATE OU DELETE
+            if "RETURNING" in query:
+                cls.conn.commit()
+                result = cls.cur.fetchone()  # Récupère la première ligne (ID retourné par RETURNING)
+                if result:
+                    return result  # Retourner l'ID de la première colonne (0 index)
+                else:
+                    return None
+                
         except psycopg2.Error as e:
+            cls.conn.rollback()
             raise RuntimeError(f"Query execution error: {e}")
         except Exception as e:
+            cls.conn.rollback()
             raise RuntimeError(f"An unexpected error occurred while executing the query: {e}")

@@ -30,7 +30,7 @@ env:
 	@if [ -f $(ENV_FILE) ]; then echo "$(ENV_FILE) already exists!"; exit 1; fi
 	@touch $(ENV_FILE)
 	@echo "Creating $(ENV_FILE) with default values..."
-	@echo "POSTGRES_DB_HOST=localhost" >> $(ENV_FILE)
+	@echo "POSTGRES_DB_HOST=database" >> $(ENV_FILE)
 	@echo "POSTGRES_DB_NAME=groupe7-dev" >> $(ENV_FILE)
 	@echo "POSTGRES_DB_PORT=5432" >> $(ENV_FILE)
 	@echo "POSTGRES_DB_USER=root" >> $(ENV_FILE)

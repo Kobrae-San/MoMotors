@@ -1,0 +1,164 @@
+<p-dialog
+  [modal]="true"
+  [closable]="false"
+  [header]="isLogin ? 'Connexion' : 'Inscription'"
+  [visible]="true"
+  [style]="{ width: '60%' }">
+  <div *ngIf="isLogin; else registerTemplate">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit(true)"
+      [style]="{ 'padding-top': '0.25rem' }">
+      <div class="p-fluid">
+        <div class="field">
+          <p-floatLabel variant="on">
+            <input
+              pInputText
+              id="login-email"
+              formControlName="email"
+              type="email"
+              autocomplete="off" />
+            <label for="login-email">Email</label>
+          </p-floatLabel>
+          <small
+            class="p-error"
+            *ngIf="
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            ">
+            Email invalide
+          </small>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <p-password
+              id="login-password"
+              formControlName="password"
+              [toggleMask]="true"></p-password>
+            <label for="login-password">Mot de passe</label>
+          </p-floatLabel>
+          <small
+            class="p-error"
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            ">
+            Le mot de passe doit contenir au moins 6 caractères
+          </small>
+        </div>
+
+        <div class="flex space-x-2 mt-3">
+          <p-button
+            severity="secondary"
+            label="Annuler"
+            (click)="closeForm()"
+            class="flex-1 p-button-width"></p-button>
+
+          <p-button
+            type="submit"
+            label="Se connecter"
+            [disabled]="loginForm.invalid"
+            class="flex-1 p-button-width"></p-button>
+        </div>
+      </div>
+    </form>
+    <p class="text-center mt-3">
+      Pas encore de compte ?
+      <a href="#" (click)="toggleAuthMode($event)">Inscrivez-vous</a>
+    </p>
+  </div>
+
+  <ng-template #registerTemplate>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit(false)"
+      [style]="{ 'padding-top': '0.25rem' }">
+      <div class="p-fluid">
+        <div class="field">
+          <p-floatLabel variant="on">
+            <input
+              pInputText
+              id="register-lastName"
+              formControlName="lastName"
+              autocomplete="off" />
+            <label for="register-lastName">Nom</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <input
+              pInputText
+              id="register-firstName"
+              formControlName="firstName"
+              autocomplete="off" />
+            <label for="register-firstName">Prénom</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <input
+              pInputText
+              id="register-email"
+              formControlName="email"
+              type="email"
+              autocomplete="off" />
+            <label for="register-email">Email</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <input
+              pInputText
+              id="register-phone"
+              formControlName="phone"
+              autocomplete="off" />
+            <label for="register-phone">Téléphone</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <p-password
+              id="register-password"
+              formControlName="password"
+              [toggleMask]="true"></p-password>
+            <label for="register-password">Mot de passe</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="field">
+          <p-floatLabel variant="on">
+            <p-password
+              id="register-confirmPassword"
+              formControlName="confirmPassword"
+              [toggleMask]="true"></p-password>
+            <label for="register-confirmPassword">
+              Confirmer le mot de passe
+            </label>
+          </p-floatLabel>
+        </div>
+
+        <div class="flex space-x-2 mt-3">
+          <p-button
+            severity="secondary"
+            label="Annuler"
+            (click)="closeForm()"
+            class="flex-1 p-button-width"></p-button>
+
+          <p-button
+            type="submit"
+            label="S'inscrire"
+            [disabled]="registerForm.invalid"
+            class="flex-1 p-button-width"></p-button>
+        </div>
+      </div>
+    </form>
+    <p class="text-center mt-3">
+      Déjà un compte ?
+      <a href="#" (click)="toggleAuthMode($event)">Connectez-vous</a>
+    </p>
+  </ng-template>
+</p-dialog>
