@@ -18,6 +18,10 @@ services:
       context: ./client
       dockerfile: Dockerfile
     platform: linux/amd64
+    environment:
+      MS_TRANSACTION_HOST: ${MS_TRANSACTION_HOST}
+      MS_USER_HOST: ${MS_USER_HOST}
+      MS_VEHICLE_HOST: ${MS_VEHICLE_HOST}
     ports:
       - "4200:4200"
     volumes:
@@ -34,7 +38,10 @@ services:
       DB_USER: ${POSTGRES_DB_USER}
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
-      DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3001:3001"
     volumes:
@@ -54,6 +61,10 @@ services:
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
       DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3002:3002"
     volumes:
@@ -73,6 +84,10 @@ services:
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
       DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3003:3003"
     volumes:
