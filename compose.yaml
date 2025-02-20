@@ -1,7 +1,6 @@
 services:
   database:
     image: postgres:17.2
-    restart: always
     env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_DB_USER}
@@ -10,7 +9,6 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - pg_data:/var/lib/postgresql/data
       - ./config:/docker-entrypoint-initdb.d
 
   client:
@@ -47,8 +45,6 @@ services:
     volumes:
       - ./microservices/transaction:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
   ms-user:
     build:
@@ -70,8 +66,6 @@ services:
     volumes:
       - ./microservices/user:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
   ms-vehicle:
     build:
@@ -93,9 +87,6 @@ services:
     volumes:
       - ./microservices/vehicle:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
 volumes:
-  pg_data:
   node_modules:
