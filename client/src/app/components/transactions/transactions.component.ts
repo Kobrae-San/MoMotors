@@ -37,72 +37,72 @@ export class TransactionsComponent implements OnInit {
   transactionsData!: any[];
 
   ngOnInit(): void {
-    this.transactionsService.getTransactions().subscribe(itemsTransactions => {
-      this.transactionsData = itemsTransactions.data;
-    });
+    // this.transactionsService.getTransactions().subscribe(itemsTransactions => {
+      // this.transactionsData = itemsTransactions.data;
+    // });
   }
 
-  getType(type: string) {
-    switch (type) {
-      case "Vente":
-        return "secondary";
-      case "Location":
-        return "info";
-      default:
-        return "info";
-    }
-  }
-
-  getStatus(status: string) {
-    switch (status) {
-      case "Validé":
-        return "success";
-      case "En attente":
-        return "warn";
-      case "Refusé":
-        return "danger";
-      default:
-        return "info";
-    }
-  }
-
-  goToDetail(transaction: any) {
-    this.selectedTransaction = { ...transaction };
-
-    this.ref = this.dialogService.open(TransactionsDetailsComponent, {
-      header: "Gestion de dossiers",
-      width: "50%",
-      contentStyle: { "max-height": "500px", overflow: "auto" },
-      closable: true,
-      data: {
-        transaction: this.selectedTransaction,
-      },
-    });
-  }
-
-  delete(transaction: any) {
-    this.transactionsService.deleteTransaction(transaction.id).subscribe(
-      () => {
-        this.messageService.add({
-          severity: "success",
-          summary: "Suppression",
-          detail: `Le dossier ${transaction.id} a été supprimé avec succès.`,
-          life: 3000,
-        });
-
-        this.transactionsData = this.transactionsData.filter(
-          t => t.id !== transaction.id
-        );
-      },
-      error => {
-        this.messageService.add({
-          severity: "error",
-          summary: "Erreur",
-          detail:
-            "Une erreur est survenue lors de la suppression de la transaction.",
-          life: 3000,
-        });
-      }
-    );
-  }
+//   getType(type: string) {
+//     switch (type) {
+//       case "Vente":
+//         return "secondary";
+//       case "Location":
+//         return "info";
+//       default:
+//         return "info";
+//     }
+//   }
+//
+//   getStatus(status: string) {
+//     switch (status) {
+//       case "Validé":
+//         return "success";
+//       case "En attente":
+//         return "warn";
+//       case "Refusé":
+//         return "danger";
+//       default:
+//         return "info";
+//     }
+//   }
+//
+//   goToDetail(transaction: any) {
+//     this.selectedTransaction = { ...transaction };
+//
+//     this.ref = this.dialogService.open(TransactionsDetailsComponent, {
+//       header: "Gestion de dossiers",
+//       width: "50%",
+//       contentStyle: { "max-height": "500px", overflow: "auto" },
+//       closable: true,
+//       data: {
+//         transaction: this.selectedTransaction,
+//       },
+//     });
+//   }
+//
+//   delete(transaction: any) {
+//     this.transactionsService.deleteTransaction(transaction.id).subscribe(
+//       () => {
+//         this.messageService.add({
+//           severity: "success",
+//           summary: "Suppression",
+//           detail: `Le dossier ${transaction.id} a été supprimé avec succès.`,
+//           life: 3000,
+//         });
+//
+//         this.transactionsData = this.transactionsData.filter(
+//           t => t.id !== transaction.id
+//         );
+//       },
+//       error => {
+//         this.messageService.add({
+//           severity: "error",
+//           summary: "Erreur",
+//           detail:
+//             "Une erreur est survenue lors de la suppression de la transaction.",
+//           life: 3000,
+//         });
+//       }
+//     );
+//   }
 }

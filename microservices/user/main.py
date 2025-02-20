@@ -1,10 +1,12 @@
 from typing import Union
 from fastapi import FastAPI
-
+from shared.utils.app_config import app_config
 from shared.utils.auth import Auth, authenticate, UserRegistration, create_user
 from shared.utils.database import Database
 
-app = FastAPI()
+from shared.utils.auth import logger
+
+app = app_config()
 
 db = Database()
 
@@ -19,13 +21,26 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 @app.post("/login")
 def login(request: Auth):
-    token = authenticate(request.username, request.password, request.new_password)
+    token = authenticate(request.username, request.password)
     return {"access_token": token}
 
 @app.post("/register")
 def register(request: UserRegistration):
-    user_id = create_user(
+    print(request)
+    create_user(
         username=request.username,
-        password=request.password,
+        password=request.password
     )
-    return {"user_id": user_id, "message": "Utilisateur créé avec succès"}
+    try:
+        db.query(
+            'INSERT INTO "user" (email, password, firstname, lastname, telephone) VALUES (%s, %s, %s, %s, %s);',[
+            request.email,
+            request.password,
+            request.firstName,
+            request.lastName,
+            request.phone])
+
+    except Exception as err:
+        logger.error(f"Erreur lors de la création de l'utilisateur: {err}")
+
+    return {"message": "Utilisateur créé avec succès"}

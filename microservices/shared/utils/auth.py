@@ -26,35 +26,19 @@ class Auth(BaseModel):
 
 class UserRegistration(BaseModel):
     username: str
+    email: str
     password: str
+    firstName: str
+    lastName: str
+    phone: str
 
 def calculate_secret_hash(username):
     message = username + os.getenv("CLIENT_ID")
     key = bytes(os.getenv("CLIENT_SECRET"), 'utf-8')
     return base64.b64encode(hmac.new(key, message.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
 
-def respond_to_new_password_challenge(session, username, new_password):
-    try:
-        response = client.respond_to_auth_challenge(
-            ClientId=os.getenv('CLIENT_ID'),
-            ChallengeName='NEW_PASSWORD_REQUIRED',
-            Session=session,
-            ChallengeResponses={
-                "USERNAME": username,
-                "NEW_PASSWORD": new_password,
-                "SECRET_HASH": calculate_secret_hash(username)
-            }
-        )
-        auth_result = response.get("AuthenticationResult")
-        if auth_result and "AccessToken" in auth_result:
-            return auth_result["AccessToken"]
-        else:
-            raise HTTPException(status_code=400, detail="Erreur: token d'accès non trouvé.")
-    except Exception as e:
-        logger.error(f"Erreur Cognito: {e}")
-        raise HTTPException(status_code=400, detail="Une erreur est survenue lors du changement de mot de passe")
 
-def authenticate(username: str, password: str, new_password: str = None):
+def authenticate(username: str, password: str):
     try:
         response = client.initiate_auth(
             AuthFlow="USER_PASSWORD_AUTH",
@@ -65,13 +49,7 @@ def authenticate(username: str, password: str, new_password: str = None):
             },
             ClientId=os.getenv('CLIENT_ID'),
         )
-
-        if response.get("ChallengeName") == "NEW_PASSWORD_REQUIRED":
-            if not new_password:
-                raise HTTPException(status_code=403, detail="Nouveau mot de passe requis")
-
-            session = response["Session"]
-            return respond_to_new_password_challenge(session, username, new_password)
+        print(response)
 
         return response["AuthenticationResult"]["AccessToken"]
 

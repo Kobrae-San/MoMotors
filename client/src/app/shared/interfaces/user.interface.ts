@@ -4,6 +4,7 @@ export default interface User {
   firstname: string;
   lastname: string;
   email: string;
+  username?: string;
   is_admin: boolean;
   updated_at?: Date;
   created_at?: Date;
