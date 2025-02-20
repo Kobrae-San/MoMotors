@@ -26,6 +26,8 @@ jobs:
           echo "POSTGRES_DB_PASSWORD=${{ secrets.POSTGRES_DB_PASSWORD }}" >> .env
           echo "POSTGRES_DB_HOST=${{ secrets.POSTGRES_DB_HOST }}" >> .env
           echo "POSTGRES_DB_PORT=${{ secrets.POSTGRES_DB_PORT }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
 
       - name: Deploy to EC2 Frontend
         run: |
@@ -34,7 +36,7 @@ jobs:
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_FRONTEND_IP }} << 'EOF'
             docker-compose down
-            docker-compose up -d -p 80:4200 client
+            docker-compose up -d client
           EOF
 
       # - name: Deploy to EC2 Transaction
