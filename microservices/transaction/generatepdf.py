@@ -34,11 +34,11 @@ def generate_pdf(data):
     line_height = 20 
 
     pdf.setFont("Helvetica-Bold", 14)
-    pdf.drawCentredString(width / 2, y_position, "M'Motors")
+    pdf.drawCentredString(width / 2, y_position, "MoMotors")
     y_position -= 40
 
     pdf.setFont("Helvetica-Bold", 20)
-    pdf.drawCentredString(width / 2, y_position, f"CONTRAT DE {data["type"].upper()}")  
+    pdf.drawCentredString(width / 2, y_position, f"CONTRAT DE {data["type"].upper()}")
     y_position -= 40
 
     pdf.setFont("Helvetica", 12)
@@ -135,4 +135,4 @@ def generate_pdf(data):
     
     buffer.seek(0)
 
-    return StreamingResponse(buffer, media_type="application/pdf", headers={"Content-Disposition": f"inline; filename={filename}"})
+    return buffer.getvalue()
