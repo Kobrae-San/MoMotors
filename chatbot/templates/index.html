@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Dossiers de Transaction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Chatbot Dossiers de Transaction - Interrogez votre fichier</h1>
+
+        <div id="chatbox"></div>
+
+        <div id="loading" style="display: none;">Traitement en cours...</div>
+
+        <div id="input-container">
+            <input type="text" id="filename" placeholder="12_transaction.pdf">
+            <input type="text" id="user-input" placeholder="Posez votre question...">
+            <button id="send-button">Envoyer</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

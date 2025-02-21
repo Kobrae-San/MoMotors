@@ -66,29 +66,6 @@ Utilise le modele llama3 et peut accepter des fichiers de Google Drive en tant q
 python3 app.py
 ```
 
-Les options de lancement de app.py
-```bash
-options:
-  -h, --help            show this help message and exit
-  --model MODEL         Ollama model to use (default: llama3)
-  --rag                 Start script with rag (enabled by default)
-  --no-rag              Start script with no rag
-  --temperature TEMPERATURE
-                        Temperature used by Ollama (0-1, default: 0.1)
-  --filename FILENAME
-                        AWS S3 Bucket filename (default: 12_transaction.pdf)
-```
-
-examples :
-
-```bash
-python3 app.py --temperature 0.6
-```
-
-```bash
-python3 app.py --filename 12_transaction.pdf
-```
-
 ### Désactiver le venv :
 ```bash
 deactivate
