@@ -1,24 +1,32 @@
 <p-toast></p-toast>
-
-<p-panel header="Gestion de dossiers">
+<p-panel>
   <p-table
     [value]="transactionsData"
     [paginator]="true"
     [rows]="5"
     showGridlines>
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <span class="text-xl font-bold">Gestion de dossiers</span>
+      </div>
+    </ng-template>
+
     <ng-template #header>
       <tr>
         <th>ID du dossier</th>
+        <th>ID de l'utilisateur</th>
         <th>ID du véhicule</th>
         <th>Marque</th>
         <th>Type d'achat</th>
         <th>Statut du dossier</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
     </ng-template>
+
     <ng-template #body let-transactions>
       <tr>
         <td>{{ transactions.id }}</td>
+        <td>{{ transactions.id_user }}</td>
         <td>{{ transactions.id_vehicle }}</td>
         <td>{{ transactions.brand }}</td>
         <td>
@@ -34,13 +42,14 @@
         <td>
           <p-button
             class="mr-2"
-            severity="warn"
+            severity="info"
             pTooltip="Voir détails"
             tooltipPosition="top"
             icon="pi pi-info-circle"
             (click)="goToDetail(transactions)"></p-button>
+
           <p-button
-            severity="warn"
+            severity="danger"
             pTooltip="Supprimer"
             tooltipPosition="top"
             icon="pi pi-times"

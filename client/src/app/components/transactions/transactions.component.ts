@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { MessageService } from "primeng/api";
+import { ButtonModule } from "primeng/button";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import { TransactionsService } from "../../shared/services/transactions.service";
-import { TransactionsDetailsComponent } from "../transactions-details/transactions-details.component";
 import { PanelModule } from "primeng/panel";
 import { TableModule } from "primeng/table";
 import { TagModule } from "primeng/tag";
-import { ButtonModule } from "primeng/button";
-import { TooltipModule } from "primeng/tooltip";
 import { ToastModule } from "primeng/toast";
+import { TooltipModule } from "primeng/tooltip";
+import { TransactionsService } from "../../shared/services/transactions.service";
+import { TransactionsDetailsComponent } from "../transactions-details/transactions-details.component";
 
 @Component({
   selector: "app-transactions",
@@ -26,6 +26,7 @@ import { ToastModule } from "primeng/toast";
 })
 export class TransactionsComponent implements OnInit {
   selectedTransaction: any = null;
+  userId: number = 1;
   ref: DynamicDialogRef | undefined;
 
   constructor(
@@ -37,9 +38,15 @@ export class TransactionsComponent implements OnInit {
   transactionsData!: any[];
 
   ngOnInit(): void {
-    this.transactionsService.getTransactions().subscribe(itemsTransactions => {
-      this.transactionsData = itemsTransactions.data;
-    });
+    this.getTransactions();
+  }
+
+  getTransactions() {
+    this.transactionsService
+      .getAllTransactions()
+      .subscribe(itemsTransactions => {
+        this.transactionsData = itemsTransactions.data;
+      });
   }
 
   getType(type: string) {
@@ -82,17 +89,16 @@ export class TransactionsComponent implements OnInit {
 
   delete(transaction: any) {
     this.transactionsService.deleteTransaction(transaction.id).subscribe(
-      () => {
-        this.messageService.add({
-          severity: "success",
-          summary: "Suppression",
-          detail: `Le dossier ${transaction.id} a été supprimé avec succès.`,
-          life: 3000,
-        });
-
-        this.transactionsData = this.transactionsData.filter(
-          t => t.id !== transaction.id
-        );
+      result => {
+        if (result) {
+          this.messageService.add({
+            severity: "success",
+            summary: "Suppression",
+            detail: `Le dossier ${transaction.id} a été supprimé avec succès.`,
+            life: 3000,
+          });
+          this.getTransactions();
+        }
       },
       error => {
         this.messageService.add({

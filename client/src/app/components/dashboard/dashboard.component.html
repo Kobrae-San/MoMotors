@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-panel>
   <p-table [value]="vehicleData" [paginator]="true" [rows]="5" showGridlines>
     <ng-template #caption>
@@ -40,12 +41,13 @@
             (onClick)="editVehicle(vehicle)"></p-button>
           <p-button
             class="mr-2"
-            severity="warn"
+            severity="info"
             pTooltip="Voir détails"
             tooltipPosition="top"
-            icon="pi pi-info-circle"></p-button>
+            icon="pi pi-info-circle"
+            (onClick)="goToDetails(vehicle)"></p-button>
           <p-button
-            severity="warn"
+            severity="danger"
             pTooltip="Supprimer"
             tooltipPosition="top"
             icon="pi pi-times"
@@ -55,3 +57,5 @@
     </ng-template>
   </p-table>
 </p-panel>
+
+<app-transactions />
