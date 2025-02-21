@@ -25,7 +25,7 @@ def login(request: Auth):
 
 @app.post("/register")
 def register(request: UserRegistration):
-    print(request)
+
     create_user(
         username=request.username,
         password=request.password

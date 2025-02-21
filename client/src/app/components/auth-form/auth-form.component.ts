@@ -13,7 +13,7 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { NgIf } from "@angular/common";
 import { InputText } from "primeng/inputtext";
 import {UserService} from '../../shared/services/user.service';
-import {response} from 'express';
+
 
 @Component({
   selector: "app-auth-form",
@@ -90,7 +90,6 @@ export class AuthFormComponent implements OnDestroy{
 
     if (isLogin) {
       this.loginForm.value.username = this.loginForm.value.email
-      // console.log("Connexion avec", this.loginForm.value);
 
       this.userservice.loginUser(this.loginForm.value).subscribe({
         next: (response) => {
@@ -103,9 +102,6 @@ export class AuthFormComponent implements OnDestroy{
 
     } else {
       this.registerForm.value.username = this.registerForm.value.email
-      console.log("Inscription avec", {
-        ...this.registerForm.value,
-      });
 
       this.userservice.createUser(this.registerForm.value).subscribe({
         next: (response) => {

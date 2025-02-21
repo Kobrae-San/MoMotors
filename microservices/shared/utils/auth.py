@@ -49,7 +49,6 @@ def authenticate(username: str, password: str):
             },
             ClientId=os.getenv('CLIENT_ID'),
         )
-        print(response)
 
         return response["AuthenticationResult"]["AccessToken"]
 
