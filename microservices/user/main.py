@@ -1,5 +1,4 @@
 from typing import Union
-from fastapi import FastAPI
 from shared.utils.app_config import app_config
 from shared.utils.auth import Auth, authenticate, UserRegistration, create_user
 from shared.utils.database import Database
