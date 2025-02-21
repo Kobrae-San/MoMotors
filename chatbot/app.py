@@ -1,55 +1,54 @@
-import torch
 import os
-import argparse
+import torch
 import ollama
+from flask import Flask, request, jsonify, render_template
+
 from rag import ollama_chat
 from upload import upload
 
-YELLOW = '\033[93m'
-NEON_GREEN = '\033[92m'
-RESET_COLOR = '\033[0m'
+app = Flask(__name__)
 
-if __name__ == "__main__":
+vault_content = {}
+vault_embeddings = {}
 
-    print(NEON_GREEN + "Parsing command-line arguments..." + RESET_COLOR)
-    parser = argparse.ArgumentParser(description="Ollama Chat")
-    parser.add_argument("--model", default="llama3", help="Ollama model to use (default: llama3)")
-    parser.add_argument("--rag", action="store_true", default=True, help="Start script with rag (enabled by default)")
-    parser.add_argument("--no-rag", action="store_false", dest="rag", help="Start script with no rag")
-    parser.add_argument("--temperature", type=float, default=0.1, help="Temperature used by Ollama (0-1, default: 0.1)")
-    parser.add_argument("--filename", type=str, default="12_transaction.pdf", help="S3 transaction PDF filename (default : 12_transaction.pdf")
-    args = parser.parse_args()
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    vault_content = []
-    vault_embeddings = []
+@app.route('/chat', methods=['POST'])
+def chat():
+    global vault_content, vault_embeddings
 
-    if args.rag :
-        upload(args.filename)
-        if os.path.exists("vault.txt"):
-            print(NEON_GREEN + "Loading vault content..." + RESET_COLOR)
+    data = request.json
+    filename = data.get("filename", "").strip()
+    user_input = data.get("question", "").strip()
+
+    if not filename:
+        return jsonify({"error": "Veuillez entrer un nom de fichier"}), 400
+    if not user_input:
+        return jsonify({"error": "Veuillez poser une question"}), 400
+
+    if filename not in vault_content:
+        try:
+            upload(filename) 
             with open("vault.txt", "r", encoding='utf-8') as vault_file:
-                vault_content = vault_file.readlines()
-            print(NEON_GREEN + "Generating embeddings for the vault content..." + RESET_COLOR)
-            for content in vault_content:
-                response = ollama.embeddings(model='mxbai-embed-large', prompt=content)
-                vault_embeddings.append(response["embedding"])
-            print(NEON_GREEN + "Converting embeddings to tensor..." + RESET_COLOR)
-        else:
-            print(NEON_GREEN + "/!\\ No vault to embed" + RESET_COLOR)
-    else :
-        print(NEON_GREEN + "No rag" + RESET_COLOR)
+                vault_content[filename] = vault_file.readlines()
 
+            vault_embeddings[filename] = torch.tensor([
+                ollama.embeddings(model='mxbai-embed-large', prompt=content)["embedding"]
+                for content in vault_content[filename]
+            ])
+        except Exception as e:
+            return jsonify({"error": f"Erreur lors du chargement du fichier : {e}"}), 500
 
-    vault_embeddings_tensor = torch.tensor(vault_embeddings) 
+    try:
+        system_message = "Vous êtes un assistant expert en extraction d'informations à partir de documents."
+        conversation_history = []
+        response = ollama_chat(user_input, system_message, vault_embeddings[filename], vault_content[filename], "llama3", conversation_history, 0.1)
 
-    print(NEON_GREEN + "Starting conversation loop..." + RESET_COLOR)
-    conversation_history = []
-    system_message = "Vous êtes un assistant utile, expert dans l'extraction des informations les plus utiles à partir d'un texte donné. Ajoutez également des informations pertinentes externes au contexte fourni."
+        return jsonify({"response": response})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-    while True:
-        user_input = input(YELLOW + "\nPosez une question sur votre document (ou tapez 'quitter' pour sortir) :\n" + RESET_COLOR)
-        if user_input.lower() == 'quitter':
-            break
-        
-        response = ollama_chat(user_input, system_message, vault_embeddings_tensor, vault_content, args.model, conversation_history, args.temperature)
-        print(NEON_GREEN + "Réponse : \n\n" + response + RESET_COLOR)
+if __name__ == '__main__':
+    app.run(debug=True)
