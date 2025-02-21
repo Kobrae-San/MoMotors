@@ -44,35 +44,35 @@ jobs:
             docker-compose up -d client
           EOF
 
-      # - name: Deploy to EC2 Transaction
-      #   run: |
-      #     scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
-      #       docker-compose down
-      #       docker-compose up -d ms-transaction
-      #     EOF
+      - name: Deploy to EC2 Transaction
+        run: |
+          scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
+            docker-compose down
+            docker-compose up -d ms-transaction
+          EOF
 
-      # - name: Deploy to EC2 User
-      #   run: |
-      #     scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no -r microservices/user ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
-      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} << 'EOF'
-      #       docker-compose down
-      #       docker-compose up -d ms-user
-      #     EOF
+      - name: Deploy to EC2 User
+        run: |
+          scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no -r microservices/user ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} << 'EOF'
+            docker-compose down
+            docker-compose up -d ms-user
+          EOF
 
-      # - name: Deploy to EC2 Vehicle
-      #   run: |
-      #     scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no -r microservices/vehicle ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
-      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} << 'EOF'
-      #       docker-compose down
-      #       docker-compose up -d ms-vehicle
-      #     EOF
+      - name: Deploy to EC2 Vehicle
+        run: |
+          scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no -r microservices/vehicle ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
+          scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} << 'EOF'
+            docker-compose down
+            docker-compose up -d ms-vehicle
+          EOF
