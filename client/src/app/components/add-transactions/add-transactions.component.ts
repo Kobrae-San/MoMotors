@@ -94,7 +94,7 @@ export class AddTransactionsComponent implements OnInit {
     };
 
     const newTransaction: Transaction = {
-      id_vehicle: this.vehicleInformations.id,
+      id_vehicle: this.vehicleInformations.id ?? 0,
       id_user: 2,
       status: TransactionStatus.Pending,
       id_admin: 1,
