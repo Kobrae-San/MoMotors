@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
+import {Component, EventEmitter, inject, Input, OnDestroy, Output} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,8 @@ import { Button } from "primeng/button";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { NgIf } from "@angular/common";
 import { InputText } from "primeng/inputtext";
+import {UserService} from '../../shared/services/user.service';
+
 
 @Component({
   selector: "app-auth-form",
@@ -27,7 +29,7 @@ import { InputText } from "primeng/inputtext";
     InputText,
   ],
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements OnDestroy{
   loginForm: FormGroup;
   registerForm: FormGroup;
 
@@ -38,6 +40,7 @@ export class AuthFormComponent {
 
   private fb = inject(FormBuilder);
   private ref: DynamicDialogRef = inject(DynamicDialogRef);
+  private userservice = inject(UserService)
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -56,6 +59,11 @@ export class AuthFormComponent {
       },
       { validators: this.passwordsMatchValidator }
     );
+  }
+
+  ngOnDestroy() {
+    this.close.emit()
+    this.ref.close()
   }
 
   private passwordsMatchValidator(group: FormGroup) {
@@ -81,11 +89,28 @@ export class AuthFormComponent {
     if (form.invalid) return;
 
     if (isLogin) {
-      console.log("Connexion avec", this.loginForm.value);
+      this.loginForm.value.username = this.loginForm.value.email
+
+      this.userservice.loginUser(this.loginForm.value).subscribe({
+        next: (response) => {
+          console.log("connexion reussi", response)
+        },
+        error: (err) => {
+          console.error("erreur de connexion", err)
+        }
+      })
+
     } else {
-      console.log("Inscription avec", {
-        ...this.registerForm.value,
-      });
+      this.registerForm.value.username = this.registerForm.value.email
+
+      this.userservice.createUser(this.registerForm.value).subscribe({
+        next: (response) => {
+          console.log("connexion reussi", response)
+        },
+        error: (err) => {
+          console.error("erreur de connexion", err)
+        }
+      })
     }
 
     this.close.emit();

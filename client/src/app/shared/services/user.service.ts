@@ -25,15 +25,19 @@ export class UserService {
     return this.http.get<Response>(`${this.apiUrl}/${id_user}`);
   }
 
-  public createUser(id_user: number, user: User) {
-    return this.http.post<Vehicle>(`${this.apiUrl}/${id_user}`, user);
+  public loginUser(user: User) {
+    return this.http.post<Response>(`${this.apiUrl}/login`,user);
+  }
+
+  public createUser(user: User) {
+    return this.http.post<Response>(`${this.apiUrl}/register`, user);
   }
 
   public updateUser(id_user: number, updatedUser: any) {
-    return this.http.patch<Vehicle>(`${this.apiUrl}/${id_user}`, updatedUser);
+    return this.http.patch<Response>(`${this.apiUrl}/${id_user}`, updatedUser);
   }
 
   public deleteUser(id_user: number) {
-    return this.http.delete<boolean>(`${this.apiUrl}/${id_user}`);
+    return this.http.delete<Response>(`${this.apiUrl}/${id_user}`);
   }
 }
