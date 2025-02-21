@@ -1,16 +1,14 @@
 import base64
 import hashlib
-import logging
 import hmac
-from typing import Union
+import os
+import logging
 import boto3
 from fastapi import HTTPException
-from pydantic import BaseModel
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 client = boto3.client(
     'cognito-idp',
@@ -19,26 +17,19 @@ client = boto3.client(
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
 )
 
-class Auth(BaseModel):
-    username: str
-    password: str
-    new_password: Union[str, None] = None
+try:
+    response = client.list_user_pools(MaxResults=1)
+    print("Connexion AWS OK")
+except Exception as e:
+    print(f"Erreur de connexion AWS: {e}")
 
-class UserRegistration(BaseModel):
-    username: str
-    email: str
-    password: str
-    firstName: str
-    lastName: str
-    phone: str
-
-def calculate_secret_hash(username):
+def calculate_secret_hash(username: str) -> str:
     message = username + os.getenv("CLIENT_ID")
     key = bytes(os.getenv("CLIENT_SECRET"), 'utf-8')
     return base64.b64encode(hmac.new(key, message.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
 
 
-def authenticate(username: str, password: str):
+def authenticate_cognito(username: str, password: str):
     try:
         response = client.initiate_auth(
             AuthFlow="USER_PASSWORD_AUTH",
@@ -49,16 +40,15 @@ def authenticate(username: str, password: str):
             },
             ClientId=os.getenv('CLIENT_ID'),
         )
-
         return response["AuthenticationResult"]["AccessToken"]
 
     except client.exceptions.NotAuthorizedException:
         raise HTTPException(status_code=401, detail="Mot de passe incorrect")
-
     except client.exceptions.UserNotFoundException:
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
 
-def create_user(username: str, password: str):
+
+def create_user_cognito(username: str, password: str):
     try:
         user_attributes = [
             {'Name': 'email', 'Value': username},
@@ -84,6 +74,5 @@ def create_user(username: str, password: str):
     except client.exceptions.InvalidPasswordException as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Erreur lors de la création de l'utilisateur: {e}")
+        logger.error(f"Erreur lors de la création de l'utilisateur dans Cognito: {e}")
         raise HTTPException(status_code=500, detail="Erreur lors de la création de l'utilisateur")
-
