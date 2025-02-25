@@ -1,23 +1,36 @@
 <header
-  class="bg-white/90 backdrop-blur-md text-black p-4 flex justify-between items-center shadow-lg fixed top-0 left-0 w-full z-50">
+  class="backdrop-blur-md text-black p-4 flex justify-between items-center shadow-lg fixed top-0 left-0 w-full z-50">
   <h1 class="fire-text text-3xl">
     <a routerLink="/" routerLinkActive="active">
       <img src="logo.gif" alt="logo" class="h-8" />
     </a>
   </h1>
   <nav class="flex space-x-6">
-    <a routerLink="/achat" routerLinkActive="active" class="nav-link text-sm">
-      Achat
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary">
+      Accueil
+    </a>
+    <a
+      routerLink="/transactions"
+      routerLinkActive="active"
+      class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary">
+      Mes demandes
     </a>
     <a
       routerLink="/dashboard"
       routerLinkActive="active"
-      class="nav-link text-sm">
+      class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary">
       Dashboard
     </a>
-    <p-button
-      (onClick)="openAuthForm()"
-      [label]="isLogin ? 'Connexion' : 'Inscription'"></p-button>
+    <a
+      routerLink="#"
+      routerLinkActive="active"
+      class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary"
+      (click)="openAuthForm()">
+      {{ isLogin ? "Connexion" : "Inscription" }}
+    </a>
   </nav>
 </header>
 

@@ -1,1 +1,3 @@
-export const AuthGuard = () => { return true } 
+export const AuthGuard = () => {
+    return true;
+}

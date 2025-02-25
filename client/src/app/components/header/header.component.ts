@@ -1,19 +1,12 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
-import { AuthFormComponent } from "../auth-form/auth-form.component";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { Button } from "primeng/button";
+import { AuthFormComponent } from "@components/auth-form/auth-form.component";
 
 @Component({
   selector: "app-header",
-  imports: [
-    CommonModule,
-    RouterLinkActive,
-    RouterLink,
-    AuthFormComponent,
-    Button,
-  ],
+  imports: [CommonModule, RouterLinkActive, RouterLink, AuthFormComponent],
   providers: [DynamicDialogRef],
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
