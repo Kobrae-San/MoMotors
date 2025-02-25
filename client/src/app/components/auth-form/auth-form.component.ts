@@ -1,4 +1,11 @@
-import {Component, EventEmitter, inject, Input, OnDestroy, Output} from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  Output,
+} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -12,8 +19,7 @@ import { Button } from "primeng/button";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { NgIf } from "@angular/common";
 import { InputText } from "primeng/inputtext";
-import {UserService} from '../../shared/services/user.service';
-
+import { UserService } from "@services/user.service";
 
 @Component({
   selector: "app-auth-form",
@@ -29,7 +35,7 @@ import {UserService} from '../../shared/services/user.service';
     InputText,
   ],
 })
-export class AuthFormComponent implements OnDestroy{
+export class AuthFormComponent implements OnDestroy {
   loginForm: FormGroup;
   registerForm: FormGroup;
 
@@ -40,7 +46,7 @@ export class AuthFormComponent implements OnDestroy{
 
   private fb = inject(FormBuilder);
   private ref: DynamicDialogRef = inject(DynamicDialogRef);
-  private userservice = inject(UserService)
+  private userservice = inject(UserService);
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -62,8 +68,8 @@ export class AuthFormComponent implements OnDestroy{
   }
 
   ngOnDestroy() {
-    this.close.emit()
-    this.ref.close()
+    this.close.emit();
+    this.ref.close();
   }
 
   private passwordsMatchValidator(group: FormGroup) {
@@ -89,28 +95,27 @@ export class AuthFormComponent implements OnDestroy{
     if (form.invalid) return;
 
     if (isLogin) {
-      this.loginForm.value.username = this.loginForm.value.email
+      this.loginForm.value.username = this.loginForm.value.email;
 
       this.userservice.loginUser(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log("connexion reussi", response)
+        next: response => {
+          console.log("connexion reussi", response);
         },
-        error: (err) => {
-          console.error("erreur de connexion", err)
-        }
-      })
-
+        error: err => {
+          console.error("erreur de connexion", err);
+        },
+      });
     } else {
-      this.registerForm.value.username = this.registerForm.value.email
+      this.registerForm.value.username = this.registerForm.value.email;
 
       this.userservice.createUser(this.registerForm.value).subscribe({
-        next: (response) => {
-          console.log("connexion reussi", response)
+        next: response => {
+          console.log("connexion reussi", response);
         },
-        error: (err) => {
-          console.error("erreur de connexion", err)
-        }
-      })
+        error: err => {
+          console.error("erreur de connexion", err);
+        },
+      });
     }
 
     this.close.emit();

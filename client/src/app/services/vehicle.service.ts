@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import Vehicle from "../interfaces/vehicle.interface";
+import Vehicle from "@interfaces/vehicle.interface";
 import { HttpClient } from "@angular/common/http";
 import { catchError, Observable, throwError } from "rxjs";
 

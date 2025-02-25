@@ -11,8 +11,8 @@ import {
   VehicleCategory,
   VehicleEnergy,
   VehicleType,
-} from "../../shared/enums/vehicle.enum";
-import { AddTransactionsComponent } from "../add-transactions/add-transactions.component";
+} from "@enums/vehicle.enum";
+import { AddTransactionsComponent } from "@components/add-transactions/add-transactions.component";
 
 @Component({
   selector: "app-vehicle",

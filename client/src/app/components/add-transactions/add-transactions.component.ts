@@ -8,11 +8,11 @@ import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { TagModule } from "primeng/tag";
 import { ToastModule } from "primeng/toast";
 
-import { TransactionStatus } from "../../shared/enums/transaction.enum";
-import { VehicleType } from "../../shared/enums/vehicle.enum";
-import Transaction from "../../shared/interfaces/transaction.interface";
-import Vehicle from "../../shared/interfaces/vehicle.interface";
-import { TransactionsService } from "../../shared/services/transactions.service";
+import { TransactionStatus } from "@enums/transaction.enum";
+import { VehicleType } from "@enums/vehicle.enum";
+import Transaction from "@interfaces/transaction.interface";
+import Vehicle from "@interfaces/vehicle.interface";
+import { TransactionsService } from "@services/transactions.service";
 import { CheckboxModule } from "primeng/checkbox";
 
 @Component({

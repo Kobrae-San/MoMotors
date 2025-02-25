@@ -15,8 +15,8 @@ import {
   VehicleCategory,
   VehicleEnergy,
   VehicleType,
-} from "../../shared/enums/vehicle.enum";
-import { VehicleService } from "../../shared/services/vehicle.service";
+} from "@enums/vehicle.enum";
+import { VehicleService } from "@services/vehicle.service";
 
 @Component({
   selector: "app-vehicle-add",

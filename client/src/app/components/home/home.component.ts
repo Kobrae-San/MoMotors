@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { PanelModule } from "primeng/panel";
-import { VehiclesListComponent } from "../vehicles-list/vehicles-list.component";
+import { VehiclesListComponent } from "@components/vehicles-list/vehicles-list.component";
 
 @Component({
   selector: "app-home",

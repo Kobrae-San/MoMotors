@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
-import Vehicle from "../interfaces/vehicle.interface";
+import Vehicle from "@interfaces/vehicle.interface";
 import { HttpClient } from "@angular/common/http";
-import User from "../interfaces/user.interface";
+import User from "@interfaces/user.interface";
 
 interface Response {
   status: string;
@@ -26,7 +26,7 @@ export class UserService {
   }
 
   public loginUser(user: User) {
-    return this.http.post<Response>(`${this.apiUrl}/login`,user);
+    return this.http.post<Response>(`${this.apiUrl}/login`, user);
   }
 
   public createUser(user: User) {
