@@ -7,10 +7,10 @@ import { DividerModule } from "primeng/divider";
 import { GalleriaModule } from "primeng/galleria";
 import { SelectModule } from "primeng/select";
 import { TagModule } from "primeng/tag";
-import { VehicleType } from "../../shared/enums/vehicle.enum";
+import { VehicleType } from "@enums/vehicle.enum";
 import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import { AddTransactionsComponent } from "../add-transactions/add-transactions.component";
+import { AddTransactionsComponent } from "@components/add-transactions/add-transactions.component";
 
 @Component({
   selector: "app-vehicle-details",

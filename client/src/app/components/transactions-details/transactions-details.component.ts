@@ -1,5 +1,5 @@
 import { NgIf } from "@angular/common";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 import { DynamicDialogConfig } from "primeng/dynamicdialog";
