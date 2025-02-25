@@ -7,8 +7,8 @@ import { TableModule } from "primeng/table";
 import { TagModule } from "primeng/tag";
 import { ToastModule } from "primeng/toast";
 import { TooltipModule } from "primeng/tooltip";
-import { TransactionsService } from "../../shared/services/transactions.service";
-import { TransactionsDetailsComponent } from "../transactions-details/transactions-details.component";
+import { TransactionsService } from "@services/transactions.service";
+import { TransactionsDetailsComponent } from "@components/transactions-details/transactions-details.component";
 
 @Component({
   selector: "app-transactions",

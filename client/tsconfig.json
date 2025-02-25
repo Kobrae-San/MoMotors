@@ -19,9 +19,10 @@
     "module": "ES2022",
     "paths": {
       "@components/*": ["src/app/components/*"],
+      "@enums/*": ["src/app/enums/*"],
       "@guards/*": ["src/app/guards/*"],
-      "@services/*": ["src/app/services/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@services/*": ["src/app/services/*"]
     }
   },
   "angularCompilerOptions": {

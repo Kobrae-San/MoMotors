@@ -7,11 +7,11 @@ import { TableModule } from "primeng/table";
 import { TagModule } from "primeng/tag";
 import { ToastModule } from "primeng/toast";
 import { TooltipModule } from "primeng/tooltip";
-import Vehicle from "../../shared/interfaces/vehicle.interface";
-import { VehicleService } from "../../shared/services/vehicle.service";
-import { EditVehicleDialogComponent } from "../edit-vehicle-dialog/edit-vehicle-dialog.component";
-import { TransactionsComponent } from "../transactions/transactions.component";
-import { VehicleAddComponent } from "../vehicle-add/vehicle-add.component";
+import Vehicle from "@interfaces/vehicle.interface";
+import { VehicleService } from "@services/vehicle.service";
+import { EditVehicleDialogComponent } from "@components/edit-vehicle-dialog/edit-vehicle-dialog.component";
+import { TransactionsComponent } from "@components/transactions/transactions.component";
+import { VehicleAddComponent } from "@components/vehicle-add/vehicle-add.component";
 import { MessageService } from "primeng/api";
 
 @Component({

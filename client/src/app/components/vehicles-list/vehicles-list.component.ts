@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from "@angular/core";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { ToastModule } from "primeng/toast";
-import { VehicleService } from "../../shared/services/vehicle.service";
-import { VehicleComponent } from "../vehicle/vehicle.component";
+import { VehicleComponent } from "@components/vehicle/vehicle.component";
+import { VehicleService } from "@services/vehicle.service";
 
 @Component({
   selector: "app-vehicles-list",
