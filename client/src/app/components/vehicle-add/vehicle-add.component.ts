@@ -8,17 +8,22 @@ import {
   Validators,
 } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
+import { FileSelectEvent, FileUploadModule } from "primeng/fileupload";
+import { ToastModule } from "primeng/toast";
+import { ProgressBarModule } from "primeng/progressbar";
+import { BadgeModule } from "primeng/badge";
+import { OverlayBadgeModule } from "primeng/overlaybadge";
 import {
   VehicleType,
   VehicleBrand,
   VehicleEnergy,
   VehicleCategory,
 } from "../../shared/enums/vehicle.enum";
-import { NgIf } from "@angular/common";
-import { create } from "domain";
+import { NgFor, NgForOf, NgIf } from "@angular/common";
 import { VehicleService } from "../../shared/services/vehicle.service";
 import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { PrimeNG } from "primeng/config";
 
 @Component({
   selector: "app-vehicle-add",
@@ -28,6 +33,12 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
     TextareaModule,
     ReactiveFormsModule,
     NgIf,
+    NgForOf,
+    FileUploadModule,
+    ToastModule,
+    ProgressBarModule,
+    BadgeModule,
+    OverlayBadgeModule,
   ],
   providers: [MessageService],
   templateUrl: "./vehicle-add.component.html",
@@ -41,13 +52,23 @@ export class VehicleAddComponent implements OnInit {
   public vehicleEnergy: { name: string; value: string }[] = [];
   public vehicleCategory: { name: string; value: string }[] = [];
 
+  files: File[] = [];
+
+  totalSize: number = 0;
+
+  totalSizePercent: number = 0;
+
+  maxFileSize: number = 5000000;
+
+  index: number = 0;
+
   /** SERVICES */
   private fb = inject(FormBuilder);
   private vehicleService = inject(VehicleService);
   private messageService = inject(MessageService);
   private ref = inject(DynamicDialogRef);
 
-  constructor() {
+  constructor(private config: PrimeNG) {
     this.form = this.fb.group({
       model: ["", Validators.required],
       year: [
@@ -116,5 +137,78 @@ export class VehicleAddComponent implements OnInit {
         name: enumObj[key],
         value: enumObj[key],
       }));
+  }
+
+  choose(event: Event, callback: () => void) {
+    callback();
+  }
+
+  onRemoveTemplatingFile(
+    event: Event,
+    removeFileCallback: (event: Event, index: number) => void,
+    index: number
+  ) {
+    removeFileCallback(event, index);
+    this.calculateTotalSize();
+    this.updateProgress();
+    console.log("click", this.totalSize);
+  }
+
+  onClearTemplatingUpload(clear: () => void) {
+    clear();
+    this.totalSize = 0;
+    this.totalSizePercent = 0;
+    console.log("clear", this.totalSize);
+  }
+
+  onTemplatedUpload() {
+    this.messageService.add({
+      severity: "info",
+      summary: "Success",
+      detail: "File Uploaded",
+      life: 3000,
+    });
+  }
+
+  onSelectedFiles(event: FileSelectEvent) {
+    this.files = event.currentFiles;
+    this.calculateTotalSize();
+    this.updateProgress();
+  }
+
+  calculateTotalSize() {
+    this.totalSize = this.files.reduce(
+      (sum: number, file: File) => sum + file.size,
+      0
+    );
+  }
+
+  updateProgress() {
+    this.totalSizePercent = Math.min(
+      (this.totalSize / this.maxFileSize) * 100,
+      100
+    );
+  }
+
+  uploadEvent(callback: () => void) {
+    console.log("uploadEvent");
+    callback();
+  }
+
+  formatSize(bytes: number) {
+    const k = 1024;
+    const dm = 3;
+    const sizes = this.config.translation.fileSizeTypes;
+    if (bytes === 0 && sizes !== undefined) {
+      return `0 ${sizes[0]}`;
+    }
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+    if (sizes === undefined) {
+      return `${formattedSize}`;
+    }
+    return `${formattedSize} ${sizes[i]}`;
   }
 }
