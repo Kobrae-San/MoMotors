@@ -32,6 +32,14 @@ export class VehicleService {
     );
   }
 
+  public addVehiclePictures(
+    id_user: number,
+    id_vehicle: number,
+    files: File[]
+  ) {
+    return this.http.post(`${this.apiUrl}/vehicle/create/${id_user}`, {});
+  }
+
   public updateVehicle(id_vehicle: number, id_user: number, updatedData: any) {
     return this.http.put<Vehicle>(
       `${this.apiUrl}/vehicle/${id_vehicle}/update/${id_user}`,
