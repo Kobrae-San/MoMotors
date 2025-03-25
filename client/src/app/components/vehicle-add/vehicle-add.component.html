@@ -157,12 +157,12 @@
         <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
           <div class="flex gap-2">
             <p-button
-              (onClick)="choose($event, chooseCallback)"
+              (onClick)="choose(chooseCallback)"
               icon="pi pi-images"
               [rounded]="true"
               [outlined]="true" />
             <p-button
-              (onClick)="clearCallback()"
+              (onClick)="onClearAllUpload(clearCallback)"
               icon="pi pi-times"
               [rounded]="true"
               [outlined]="true"
@@ -174,7 +174,7 @@
             [showValue]="false"
             class="w-full"
             styleClass="md:w-20rem h-1 w-full md:ml-auto">
-            <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
+            <span class="whitespace-nowrap">{{ maxFileSize / 1000000 }}Mb</span>
           </p-progressbar>
         </div>
       </ng-template>
@@ -261,5 +261,5 @@
   <p-button
     type="submit"
     label="Ajouter le véhicule"
-    [disabled]="form.invalid || files.length === 0"></p-button>
+    [disabled]="form.invalid || !files || files.length === 0"></p-button>
 </form>
