@@ -139,7 +139,7 @@ export class VehicleAddComponent implements OnInit {
       }));
   }
 
-  choose(event: Event, callback: () => void) {
+  choose(callback: () => void) {
     callback();
   }
 
@@ -158,7 +158,13 @@ export class VehicleAddComponent implements OnInit {
     clear();
     this.totalSize = 0;
     this.totalSizePercent = 0;
-    console.log("clear", this.totalSize);
+  }
+
+  onClearAllUpload(clear: () => void) {
+    clear();
+    this.files = [];
+    this.calculateTotalSize();
+    this.updateProgress();
   }
 
   onTemplatedUpload() {
