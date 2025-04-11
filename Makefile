@@ -1,4 +1,4 @@
-COMPOSE = docker-compose
+COMPOSE = docker compose
 PM=npm # Package manager
 ENV_FILE=.env
 
