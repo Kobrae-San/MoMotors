@@ -3,7 +3,7 @@ import {
   VehicleCategory,
   VehicleEnergy,
   VehicleType,
-} from "../enums/vehicle.enum";
+} from "@enums/vehicle.enum";
 
 export default interface Vehicle {
   id?: number;

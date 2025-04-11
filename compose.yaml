@@ -1,7 +1,6 @@
 services:
   database:
     image: postgres:17.2
-    restart: always
     env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_DB_USER}
@@ -10,7 +9,6 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - pg_data:/var/lib/postgresql/data
       - ./config:/docker-entrypoint-initdb.d
 
   client:
@@ -18,6 +16,10 @@ services:
       context: ./client
       dockerfile: Dockerfile
     platform: linux/amd64
+    environment:
+      MS_TRANSACTION_HOST: ${MS_TRANSACTION_HOST}
+      MS_USER_HOST: ${MS_USER_HOST}
+      MS_VEHICLE_HOST: ${MS_VEHICLE_HOST}
     ports:
       - "4200:4200"
     volumes:
@@ -34,14 +36,15 @@ services:
       DB_USER: ${POSTGRES_DB_USER}
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
-      DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3001:3001"
     volumes:
       - ./microservices/transaction:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
   ms-user:
     build:
@@ -54,13 +57,15 @@ services:
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
       DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3002:3002"
     volumes:
       - ./microservices/user:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
   ms-vehicle:
     build:
@@ -73,14 +78,15 @@ services:
       DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
       DB_HOST: ${POSTGRES_DB_HOST}
       DB_PORT: ${POSTGRES_DB_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      CLIENT_HOST: ${CLIENT_HOST}
     ports:
       - "3003:3003"
     volumes:
       - ./microservices/vehicle:/app
       - ./microservices/shared:/app/shared
-    depends_on:
-      - database
 
 volumes:
-  pg_data:
   node_modules:

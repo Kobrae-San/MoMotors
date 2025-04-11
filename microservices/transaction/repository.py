@@ -5,7 +5,7 @@ def fetch_transactions():
     query = '''
         SELECT
             t.id, t.status, t.validated_at,
-            u.firstname, u.lastname,
+            u.firstname, u.lastname, u.id AS id_user,
             v.id id_vehicle, v.brand, v.model, v.price, v.type,
             CASE
                 WHEN v.type = 'Location' THEN t.start_time
@@ -30,6 +30,29 @@ def fetch_transactions():
 
     return Database.query(query, params)
 
+def fetch_transactions_by_id(id: int):
+    query = '''
+        SELECT
+            t.id, t.status, t.validated_at, t.created_at,
+            u.firstname, u.lastname, u.email, u.telephone, 
+            v.id id_vehicle, v.brand, v.model, v.price, v.type, v.year, v.km, v.energy, v.category, v.category, v.description,
+            CASE
+                WHEN v.type = 'Location' THEN t.start_time
+                ELSE NULL
+            END AS start_time,
+            CASE
+                WHEN v.type = 'Location' THEN t.end_time
+                ELSE NULL
+            END AS end_time
+        FROM "transaction" t
+            JOIN "user" u ON t.id_user = u.id
+            JOIN "vehicle" v ON t.id_vehicle = v.id
+        WHERE t.id = %s
+    '''
+    
+    params = (id,)
+    return Database.query(query, params)
+
 def update_transaction_status(id: int, status: str):
     id_admin = 1 # Remplacer par l'ID de l'admin
     query = '''
@@ -52,7 +75,7 @@ def create_transaction(transaction: TransactionModel):
 
     result = Database.query(query, params)
 
-    return result if result else None
+    return result[0] if result else None
 
 
 def delete_transaction(id: int):

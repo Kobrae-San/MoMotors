@@ -1,35 +1,25 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnInit,
-  inject,
-  Inject,
-} from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
-  Validators,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from "@angular/forms";
 
-import { DialogModule } from "primeng/dialog";
-import { ButtonModule } from "primeng/button";
-import { InputText } from "primeng/inputtext";
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { Select, SelectModule } from "primeng/select";
-import { Textarea, TextareaModule } from "primeng/textarea";
 import { NgIf } from "@angular/common";
-import { MessageService } from "primeng/api";
+import { ButtonModule } from "primeng/button";
+import { DialogModule } from "primeng/dialog";
+import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { SelectModule } from "primeng/select";
+import { TextareaModule } from "primeng/textarea";
 import {
-  VehicleType,
   VehicleBrand,
-  VehicleEnergy,
   VehicleCategory,
-} from "../../shared/enums/vehicle.enum";
-import { VehicleService } from "../../shared/services/vehicle.service";
+  VehicleEnergy,
+  VehicleType,
+} from "@enums/vehicle.enum";
+import { VehicleService } from "@services/vehicle.service";
 
 @Component({
   selector: "app-edit-vehicle-dialog",
@@ -42,7 +32,6 @@ import { VehicleService } from "../../shared/services/vehicle.service";
     ReactiveFormsModule,
     NgIf,
   ],
-  providers: [MessageService],
   templateUrl: "./edit-vehicle-dialog.component.html",
   styleUrls: ["./edit-vehicle-dialog.component.css"],
 })
@@ -54,7 +43,6 @@ export class EditVehicleDialogComponent implements OnInit {
   public vehicleCategory: { name: string; value: string }[] = [];
 
   private vehicleService = inject(VehicleService);
-  private messageService = inject(MessageService);
   private ref = inject(DynamicDialogRef);
 
   vehicleDetails: any;
@@ -152,26 +140,9 @@ export class EditVehicleDialogComponent implements OnInit {
 
       this.vehicleService
         .updateVehicle(this.vehicleDetails.id, 1, dataToSend)
-        .subscribe(
-          () => {
-            this.messageService.add({
-              severity: "success",
-              summary: "Suppression",
-              detail: `Le véhicule a bien été modifié dans la base de donnée.`,
-              life: 3000,
-            });
-            this.ref.close();
-          },
-          error => {
-            this.messageService.add({
-              severity: "error",
-              summary: "Erreur",
-              detail:
-                "Une erreur est survenue lors de la modification du véhicule dans la base de donnée.",
-              life: 3000,
-            });
-          }
-        );
+        .subscribe(() => {
+          this.ref.close();
+        });
     }
   }
 }

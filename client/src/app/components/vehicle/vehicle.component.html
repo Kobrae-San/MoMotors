@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="mb-4 p-8 flex items-center justify-center">
   <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
     <ng-template #header>
@@ -35,7 +36,8 @@
         <p-button
           label="Faire une demande"
           class="w-full"
-          styleClass="w-full" />
+          styleClass="w-full"
+          (onClick)="requestTransaction()" />
       </div>
     </ng-template>
   </p-card>

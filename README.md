@@ -20,6 +20,13 @@ MoMotors est donc le projet de refonte de cette application.
 
 - Docker
 
+## Chatbot
+
+Se déplacer dans chatbot et suivre le README.md
+```bash
+cd chatbot
+``` 
+
 ## Contributeurs
 
 - [Heitz Julien](https://github.com/heitzjulien)

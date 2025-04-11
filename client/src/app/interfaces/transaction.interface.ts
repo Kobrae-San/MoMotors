@@ -1,7 +1,7 @@
 import { TransactionStatus } from "../enums/transaction.enum";
 
 export default interface Transaction {
-  id: number;
+  id?: number;
   id_vehicle: number;
   id_user: number;
   status: TransactionStatus;
