@@ -20,7 +20,7 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { NgIf } from "@angular/common";
 import { InputText } from "primeng/inputtext";
 import { UserService } from "@services/user.service";
-import {AuthService} from '@services/auth_service';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: "app-auth-form",
