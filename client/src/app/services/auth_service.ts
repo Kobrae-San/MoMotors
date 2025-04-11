@@ -15,7 +15,7 @@ interface AuthResponse {
 })
 
 export class AuthService {
-  private apiUrl = 'http://localhost:3002'; // Utilise le même URL que votre UserService
+  private apiUrl = 'http://localhost:3002';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasValidToken());
 
   constructor(private http: HttpClient) {}
