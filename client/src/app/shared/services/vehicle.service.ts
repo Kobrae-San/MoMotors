@@ -5,8 +5,10 @@ import { catchError, throwError } from "rxjs";
 
 interface Response {
   status: string;
-  data: Vehicle[];
+  data: Vehicle[] | any[];
 }
+
+interface ResponseVehicle {}
 @Injectable({
   providedIn: "root",
 })
@@ -26,7 +28,7 @@ export class VehicleService {
   }
 
   public createVehicle(id_user: number, vehicle: Vehicle) {
-    return this.http.post<Vehicle>(
+    return this.http.post<Response>(
       `${this.apiUrl}/vehicle/create/${id_user}`,
       vehicle
     );
@@ -35,9 +37,12 @@ export class VehicleService {
   public addVehiclePictures(
     id_user: number,
     id_vehicle: number,
-    files: File[]
+    files: FormData
   ) {
-    return this.http.post(`${this.apiUrl}/vehicle/create/${id_user}`, {});
+    return this.http.post(
+      `${this.apiUrl}/vehicle/${id_vehicle}/create/pictures/${id_user}`,
+      files
+    );
   }
 
   public updateVehicle(id_vehicle: number, id_user: number, updatedData: any) {
