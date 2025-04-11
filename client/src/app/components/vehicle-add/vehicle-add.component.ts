@@ -24,7 +24,6 @@ import { VehicleService } from "../../shared/services/vehicle.service";
 import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { PrimeNG } from "primeng/config";
-import Vehicle from "../../shared/interfaces/vehicle.interface";
 
 @Component({
   selector: "app-vehicle-add",
