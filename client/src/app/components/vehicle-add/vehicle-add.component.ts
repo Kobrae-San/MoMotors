@@ -24,6 +24,7 @@ import { VehicleService } from "../../shared/services/vehicle.service";
 import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { PrimeNG } from "primeng/config";
+import Vehicle from "../../shared/interfaces/vehicle.interface";
 
 @Component({
   selector: "app-vehicle-add",
@@ -105,8 +106,28 @@ export class VehicleAddComponent implements OnInit {
         category: this.form.value.category.name,
         description: this.form.value.description,
       };
+
       this.vehicleService.createVehicle(1, dataToSend).subscribe(
-        () => {
+        response => {
+          const filesData = new FormData();
+          this.files.forEach(file => {
+            const fileWithModifiedName = new File(
+              [file],
+              `${response.data[0]}_${file.name}`,
+              { type: file.type }
+            );
+            filesData.append("vehicle-pictures", fileWithModifiedName);
+          });
+
+          const idVehicle =
+            typeof response.data[0] === "number"
+              ? response.data[0]
+              : parseInt(response.data[0]);
+          this.vehicleService
+            .addVehiclePictures(1, idVehicle, filesData)
+            .subscribe(response => {
+              console.log("response", response);
+            });
           this.messageService.add({
             severity: "success",
             summary: "Suppression",
