@@ -13,8 +13,11 @@ class Bucket:
     bucket_name = os.getenv("S3_BUCKET_NAME")
 
     @classmethod
-    def write(cls, content, name: str):
+    def write(cls, directory: str, content, name: str):
+        """
+        directory = "transaction-folders/" or "vehicles/"
+        """
         try:
-            cls.s3.put_object(Bucket=cls.bucket_name, Key=name, Body=content)
+            cls.s3.put_object(Bucket=cls.bucket_name, Key=directory + name, Body=content)
         except Exception as e:
             raise ConnectionError(f"S3 bucket connection error: {e}")
