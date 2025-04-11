@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
+import User from '@interfaces/user.interface';
 
 interface AuthResponse {
   success: boolean;
@@ -23,8 +24,8 @@ export class AuthService {
 
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
 
-  login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password })
+  login(user: User): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, user)
       .pipe(
         tap(response => {
           if (response.success && response.data?.access_token) {
