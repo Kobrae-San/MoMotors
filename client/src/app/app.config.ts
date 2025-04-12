@@ -10,6 +10,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from "@angular/platform-browser";
+import { Theme } from "./theme";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Theme,
       },
     }),
   ],

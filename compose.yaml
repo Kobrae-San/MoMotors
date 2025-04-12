@@ -11,10 +11,11 @@ services:
     volumes:
       - ./config:/docker-entrypoint-initdb.d
 
-  client:
+  client-dev:
     build:
       context: ./client
       dockerfile: Dockerfile
+      target: dev
     platform: linux/amd64
     environment:
       MS_TRANSACTION_HOST: ${MS_TRANSACTION_HOST}
@@ -22,6 +23,23 @@ services:
       MS_VEHICLE_HOST: ${MS_VEHICLE_HOST}
     ports:
       - "4200:4200"
+    volumes:
+      - ./client:/app
+      - node_modules:/app/node_modules
+
+  client-prod:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: prod
+    platform: linux/amd64
+    environment:
+      MS_TRANSACTION_HOST: ${MS_TRANSACTION_HOST}
+      MS_USER_HOST: ${MS_USER_HOST}
+      MS_VEHICLE_HOST: ${MS_VEHICLE_HOST}
+      NODE_ENV: production
+    ports:
+      - "80:80"
     volumes:
       - ./client:/app
       - node_modules:/app/node_modules
