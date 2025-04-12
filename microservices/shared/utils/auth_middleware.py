@@ -28,7 +28,6 @@ class JWTBearer(HTTPBearer):
 
 
 def get_current_user(payload=Depends(JWTBearer())):
-    """Extrait les informations de l'utilisateur à partir du token JWT"""
     return {
         "sub": payload.get("sub"),  # ID unique Cognito
         "email": payload.get("email"),

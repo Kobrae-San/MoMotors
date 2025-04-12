@@ -22,5 +22,4 @@ def register_route(request: UserRegistration):
 
 @user_router.get("/me")
 def get_current_user_route(current_user = Depends(get_current_user)):
-    """Route pour obtenir les informations de l'utilisateur connecté"""
     return {"success": True, "data": current_user}
