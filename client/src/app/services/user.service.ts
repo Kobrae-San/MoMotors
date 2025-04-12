@@ -1,5 +1,4 @@
 import { inject, Injectable } from "@angular/core";
-import Vehicle from "@interfaces/vehicle.interface";
 import { HttpClient } from "@angular/common/http";
 import User from "@interfaces/user.interface";
 
