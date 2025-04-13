@@ -1,4 +1,3 @@
-import { NgIf } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import {
   FormBuilder,
@@ -12,12 +11,19 @@ import { ToastModule } from "primeng/toast";
 import { ProgressBarModule } from "primeng/progressbar";
 import { BadgeModule } from "primeng/badge";
 import { OverlayBadgeModule } from "primeng/overlaybadge";
-import { VehicleBrand, VehicleCategory } from "../../shared/enums/vehicle.enum";
+import {
+  VehicleBrand,
+  VehicleCategory,
+  VehicleEnergy,
+  VehicleType,
+} from "../../enums/vehicle.enum";
 import { NgFor, NgForOf, NgIf } from "@angular/common";
-import { VehicleService } from "../../shared/services/vehicle.service";
+import { VehicleService } from "../../services/vehicle.service";
 import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { PrimeNG } from "primeng/config";
+import { SelectModule } from "primeng/select";
+import { TextareaModule } from "primeng/textarea";
 
 @Component({
   selector: "app-vehicle-add",
@@ -59,6 +65,7 @@ export class VehicleAddComponent implements OnInit {
   /** SERVICES */
   private fb = inject(FormBuilder);
   private vehicleService = inject(VehicleService);
+  private messageService = inject(MessageService);
   private ref = inject(DynamicDialogRef);
 
   constructor(private config: PrimeNG) {
