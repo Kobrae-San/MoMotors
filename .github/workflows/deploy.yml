@@ -34,17 +34,17 @@ jobs:
           echo "MS_VEHICLE_HOST=${{ secrets.MS_VEHICLE_HOST }}" >> .env
           echo "S3_BUCKET_NAME=${{ secrets.S3_BUCKET_NAME }}" >> .env
 
-      - name: Deploy to EC2 Frontend
-        run: |
-          scp -o StrictHostKeyChecking=no -r client ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
-          scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
-          scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_FRONTEND_IP }} << 'EOF'
-            set -e
-            docker-compose down
-            docker-compose up -d client
-            exit
-          EOF
+      # - name: Deploy to EC2 Frontend
+      #   run: |
+      #     scp -o StrictHostKeyChecking=no -r client ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+      #     scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+      #     scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
+      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_FRONTEND_IP }} << 'EOF'
+      #       set -e
+      #       docker-compose down
+      #       docker-compose up -d client
+      #       exit
+      #     EOF
 
       - name: Deploy to EC2 Transaction
         run: |
