@@ -3,9 +3,10 @@
     Modèle :
     <input
       type="text"
+      pInputText
       formControlName="model"
       required
-      class="bg-white border-white border-solid w-92 h-10 rounded-sm text-black p-2" />
+      class="bg-white border-white border-solid w-92 h-10 rounded-sm p-2" />
     <div
       *ngIf="form.controls['model'].invalid && form.controls['model'].touched"
       class="error">
@@ -15,13 +16,14 @@
 
   <label class="flex flex-col gap-4">
     Année :
-    <input
+    <p-inputNumber
       type="number"
+      mode="decimal"
       formControlName="year"
-      min="1908"
-      max="2025"
+      [min]="1908"
+      [max]="2025"
       required
-      class="bg-white border-white border-solid w-92 h-10 rounded-sm text-black p-2" />
+      class="w-92 h-10 rounded-sm" />
     <div
       *ngIf="form.controls['year'].invalid && form.controls['year'].touched"
       class="error">
@@ -31,11 +33,12 @@
 
   <label class="flex flex-col gap-4">
     Km :
-    <input
+    <p-inputNumber
       type="number"
+      [min]="5000"
       formControlName="km"
       required
-      class="bg-white border-white border-solid w-92 h-10 rounded-sm text-black p-2" />
+      class="w-92 h-10 rounded-sm" />
     <div
       *ngIf="form.controls['km'].invalid && form.controls['km'].touched"
       class="error">
@@ -50,7 +53,7 @@
       [options]="vehicleType"
       optionLabel="name"
       placeholder="Choisissez un type de vente."
-      class="w-full md:w-56 user-select-text-black"></p-select>
+      class="w-full md:w-92"></p-select>
     <div
       *ngIf="form.controls['type'].invalid && form.controls['type'].touched"
       class="error">
@@ -60,11 +63,12 @@
 
   <label class="flex flex-col gap-4">
     Prix :
-    <input
+    <p-inputNumber
       type="number"
+      [min]="300"
       formControlName="price"
       required
-      class="bg-white border-white border-solid w-92 h-10 rounded-sm text-black p-2" />
+      class="w-92 h-10 rounded-sm" />
     <div
       *ngIf="form.controls['price'].invalid && form.controls['price'].touched"
       class="error">
@@ -79,7 +83,7 @@
       [options]="vehicleBrand"
       optionLabel="name"
       placeholder="Choisissez une marque de véhicule"
-      class="w-full md:w-56"></p-select>
+      class="w-full md:w-92"></p-select>
     <div
       *ngIf="form.controls['brand'].invalid && form.controls['brand'].touched"
       class="error">
@@ -94,7 +98,7 @@
       [options]="vehicleEnergy"
       optionLabel="name"
       placeholder="Choisissez le carburant utilisé."
-      class="w-full md:w-56"></p-select>
+      class="w-full md:w-92"></p-select>
     <div
       *ngIf="form.controls['energy'].invalid && form.controls['energy'].touched"
       class="error">
@@ -109,7 +113,7 @@
       [options]="vehicleCategory"
       optionLabel="name"
       placeholder="Choisissez le type du véhicule."
-      class="w-full md:w-56"></p-select>
+      class="w-full md:w-92"></p-select>
     <div
       *ngIf="
         form.controls['category'].invalid && form.controls['category'].touched
