@@ -52,7 +52,7 @@ jobs:
 
           scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
           scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
-          scp -o StrictHostKeyChecking=no microservices/transaction/pyproject.toml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
+          scp -o StrictHostKeyChecking=no microservices/transaction/pyproject.toml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices/transaction
           scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
 
