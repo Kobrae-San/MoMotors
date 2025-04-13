@@ -1,7 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, File, UploadFile
 from typing import List
 from shared.models.vehicle import VehicleModel
-from controllers.vehicle_controller import create_vehicle_controller, get_all_vehicles_controller, get_vehicle_by_id_controller, update_vehicle_controller, delete_vehicle_controller
+from controllers.vehicle_controller import create_vehicle_controller, get_all_vehicles_controller, get_vehicle_by_id_controller, update_vehicle_controller, delete_vehicle_controller, add_vehicle_pictures_controller
 
 vehicle_router = APIRouter()
 
@@ -16,6 +16,10 @@ def get_vehicle_by_id_route(vehicle_id: int):
 @vehicle_router.post("/vehicle/create/{user_id}")
 def create_vehicle_route(user_id, vehicle_model: VehicleModel):
     return create_vehicle_controller(user_id, vehicle_model)
+
+@vehicle_router.post("/vehicle/{vehicle_id}/create/pictures/{user_id}")
+async def add_vehicle_pictures_route(user_id: int, vehicle_id: int, vehicle_pictures: List[UploadFile] = File(..., alias="vehicle-pictures")):
+    return await add_vehicle_pictures_controller(user_id, vehicle_id, vehicle_pictures)
 
 @vehicle_router.put("/vehicle/{vehicle_id}/update/{user_id}")
 def update_vehicle_route(user_id: int, vehicle_id: int, vehicle_model: VehicleModel):
