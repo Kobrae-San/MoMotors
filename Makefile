@@ -35,6 +35,10 @@ env:
 	@echo "POSTGRES_DB_PORT=5432" >> $(ENV_FILE)
 	@echo "POSTGRES_DB_USER=root" >> $(ENV_FILE)
 	@echo "POSTGRES_DB_PASSWORD=root" >> $(ENV_FILE)
+	@echo "CLIENT_HOST=http://localhost:4200" >> $(ENV_FILE)
+	@echo "MS_TRANSACTION_HOST=http://localhost:3001" >> $(ENV_FILE)
+	@echo "MS_USER_HOST=http://localhost:3002" >> $(ENV_FILE)
+	@echo "MS_VEHICLE_HOST=http://localhost:3003" >> $(ENV_FILE)
 	@echo "Done!"
 
 ##@ Utilities
