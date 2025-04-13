@@ -22,7 +22,7 @@ async def add_vehicle_pictures_service(user_id: int, vehicle_id: int, files: Lis
             uploaded_files = []
             for file in files:
                 content = await file.read()
-                file_name = f"{file.filename}"
+                file_name = f"vehicle_image_{vehicle_id}.jpg"
                 Bucket.write("vehicles/",content, file_name)
                 uploaded_files.append(file_name)
             return {"uploaded": uploaded_files}
