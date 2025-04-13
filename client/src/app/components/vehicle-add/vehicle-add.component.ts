@@ -126,11 +126,7 @@ export class VehicleAddComponent implements OnInit {
             typeof response.data[0] === "number"
               ? response.data[0]
               : parseInt(response.data[0]);
-          this.vehicleService
-            .addVehiclePictures(1, idVehicle, filesData)
-            .subscribe(response => {
-              console.log("response", response);
-            });
+          this.vehicleService.addVehiclePictures(1, idVehicle, filesData);
           this.messageService.add({
             severity: "success",
             summary: "Suppression",
