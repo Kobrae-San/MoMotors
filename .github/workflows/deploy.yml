@@ -48,6 +48,8 @@ jobs:
 
       - name: Deploy to EC2 Transaction
         run: |
+          cp microservices/pyproject.toml microservices/transaction/pyproject.toml || true
+
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} "rm -rf ~/app && mkdir ~/app"
           scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
           scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
