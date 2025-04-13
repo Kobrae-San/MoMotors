@@ -20,6 +20,7 @@ import { FloatLabelModule } from "primeng/floatlabel";
 import { NgIf } from "@angular/common";
 import { InputText } from "primeng/inputtext";
 import { UserService } from "@services/user.service";
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: "app-auth-form",
@@ -47,6 +48,7 @@ export class AuthFormComponent implements OnDestroy {
   private fb = inject(FormBuilder);
   private ref: DynamicDialogRef = inject(DynamicDialogRef);
   private userservice = inject(UserService);
+  private authservice = inject(AuthService)
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -97,7 +99,7 @@ export class AuthFormComponent implements OnDestroy {
     if (isLogin) {
       this.loginForm.value.username = this.loginForm.value.email;
 
-      this.userservice.loginUser(this.loginForm.value).subscribe({
+      this.authservice.login(this.loginForm.value).subscribe({
         next: response => {
           console.log("connexion reussi", response);
         },

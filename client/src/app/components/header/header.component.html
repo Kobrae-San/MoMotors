@@ -24,13 +24,24 @@
       class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary">
       Dashboard
     </a>
-    <a
-      routerLink="#"
-      routerLinkActive="active"
-      class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary"
-      (click)="openAuthForm()">
-      {{ isLogin ? "Connexion" : "Inscription" }}
-    </a>
+    <ng-container *ngIf="!isAuthenticated">
+      <a
+        routerLink="#"
+        routerLinkActive="active"
+        class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary"
+        (click)="openAuthForm()">
+        {{ isLogin ? "Connexion" : "Inscription" }}
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isAuthenticated">
+      <a
+        routerLink="#"
+        routerLinkActive="active"
+        class="text-sm text-black font-normal no-underline px-3 py-2 transition-all duration-300 hover:text-primary active:font-bold active:text-primary"
+        (click)="logout()">
+        Déconnexion
+      </a>
+    </ng-container>
   </nav>
 </header>
 

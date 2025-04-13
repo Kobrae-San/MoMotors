@@ -3,16 +3,13 @@ import { HomeComponent } from "./components/home/home.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { TransactionsComponent } from "./components/transactions/transactions.component";
 import { VehicleDetailsComponent } from "./components/vehicle-details/vehicle-details.component";
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: "", component: HomeComponent, title: "Accueil" },
   { path: "achat", component: HomeComponent, title: "Achat" },
   { path: "location", component: HomeComponent, title: "Location" },
-  { path: "dashboard", component: DashboardComponent, title: "Dashboard" },
-  {
-    path: "account",
-    component: TransactionsComponent,
-    title: "transactions",
-  },
-  { path: "vehicle-details/:id", component: VehicleDetailsComponent },
+  { path: "dashboard", component: DashboardComponent, title: "Dashboard"},
+  { path: "account", component: TransactionsComponent, title: "transactions" },
+  { path: "vehicle-details/:id", component: VehicleDetailsComponent, canActivate: [AuthGuard] },
 ];
