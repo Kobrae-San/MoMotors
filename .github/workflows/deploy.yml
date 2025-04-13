@@ -45,7 +45,7 @@ jobs:
       #       docker-compose up -d client
       #       exit
       #     EOF
-
+      #
       - name: Deploy to EC2 Transaction
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} "rm -rf ~/app && mkdir ~/app"
