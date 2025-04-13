@@ -40,8 +40,10 @@ jobs:
           scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_FRONTEND_IP }}:/home/ec2-user
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_FRONTEND_IP }} << 'EOF'
+            set -e
             docker-compose down
             docker-compose up -d client
+            exit
           EOF
 
       - name: Deploy to EC2 Transaction
@@ -51,8 +53,10 @@ jobs:
           scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
+            set -e
             docker-compose down
             docker-compose up -d ms-transaction
+            exit
           EOF
 
       - name: Deploy to EC2 User
@@ -62,8 +66,10 @@ jobs:
           scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_USER_IP }}:/home/ec2-user
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} << 'EOF'
+            set -e
             docker-compose down
             docker-compose up -d ms-user
+            exit
           EOF
 
       - name: Deploy to EC2 Vehicle
@@ -73,6 +79,8 @@ jobs:
           scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
           scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_VEHICLE_IP }}:/home/ec2-user
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} << 'EOF'
+            set -e
             docker-compose down
             docker-compose up -d ms-vehicle
+            exit
           EOF
