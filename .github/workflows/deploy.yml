@@ -45,9 +45,9 @@ jobs:
       #       docker-compose up -d client
       #       exit
       #     EOF
-
       - name: Deploy to EC2 Transaction
         run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} "sudo rm -rf ~/app && mkdir ~/app"
           scp -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
             set -e
@@ -59,20 +59,24 @@ jobs:
 
       - name: Deploy to EC2 User
         run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} "sudo rm -rf ~/app && mkdir ~/app"
           scp -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_USER_IP }}:~/app
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_USER_IP }} << 'EOF'
             set -e
-            docker-compose down
+            cd ~/app
+            docker-compose down --remove-orphans
             docker-compose up -d ms-user
             exit
           EOF
 
       - name: Deploy to EC2 Vehicle
         run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} "sudo rm -rf ~/app && mkdir ~/app"
           scp -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_VEHICLE_IP }}:~/app
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_VEHICLE_IP }} << 'EOF'
             set -e
-            docker-compose down
+            cd ~/app
+            docker-compose down --remove-orphans
             docker-compose up -d ms-vehicle
             exit
           EOF
