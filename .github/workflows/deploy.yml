@@ -46,22 +46,14 @@ jobs:
       #       exit
       #     EOF
 
-      # - name: Deploy to EC2 Transaction
-      #   run: |
-      #     scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:/home/ec2-user
-      #     ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
-      #       set -e
-      #       docker-compose down
-      #       docker-compose up -d ms-transaction
-      #       exit
-      #     EOF
       - name: Deploy to EC2 Transaction
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} "rm -rf ~/app && mkdir ~/app"
-          scp -o StrictHostKeyChecking=no -r . ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
+          scp -o StrictHostKeyChecking=no -r microservices/transaction ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
+          scp -o StrictHostKeyChecking=no -r microservices/shared ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app/microservices
+          scp -o StrictHostKeyChecking=no compose.yaml ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
+          scp -o StrictHostKeyChecking=no .env ec2-user@${{ secrets.EC2_TRANSACTION_IP }}:~/app
+
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_TRANSACTION_IP }} << 'EOF'
             set -e
             cd ~/app
