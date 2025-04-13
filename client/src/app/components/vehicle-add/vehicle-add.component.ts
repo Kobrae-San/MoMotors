@@ -23,11 +23,15 @@ import { MessageService } from "primeng/api";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { PrimeNG } from "primeng/config";
 import { SelectModule } from "primeng/select";
+import { InputTextModule } from "primeng/inputtext";
+import { InputNumberModule } from "primeng/inputnumber";
 import { TextareaModule } from "primeng/textarea";
 
 @Component({
   selector: "app-vehicle-add",
   imports: [
+    InputTextModule,
+    InputNumberModule,
     SelectModule,
     ButtonModule,
     TextareaModule,
