@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteVehicle(vehicle: any) {
-    this.vehicleService.deleteVehicle(vehicle.id, 1).subscribe(
+    this.vehicleService.deleteVehicle(vehicle.id, 2).subscribe(
       result => {
         if (result) {
           this.messageService.add({
