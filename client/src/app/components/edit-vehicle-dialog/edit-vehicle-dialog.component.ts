@@ -139,7 +139,7 @@ export class EditVehicleDialogComponent implements OnInit {
       };
 
       this.vehicleService
-        .updateVehicle(this.vehicleDetails.id, 1, dataToSend)
+        .updateVehicle(this.vehicleDetails.id, 2, dataToSend)
         .subscribe(() => {
           this.ref.close();
         });
