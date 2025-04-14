@@ -110,7 +110,7 @@ export class VehicleAddComponent implements OnInit {
         description: this.form.value.description,
       };
 
-      this.vehicleService.createVehicle(1, dataToSend).subscribe(
+      this.vehicleService.createVehicle(2, dataToSend).subscribe(
         response => {
           const filesData = new FormData();
           this.files.forEach(file => {
@@ -126,7 +126,9 @@ export class VehicleAddComponent implements OnInit {
             typeof response.data[0] === "number"
               ? response.data[0]
               : parseInt(response.data[0]);
-          this.vehicleService.addVehiclePictures(1, idVehicle, filesData);
+          this.vehicleService
+            .addVehiclePictures(2, idVehicle, filesData)
+            .subscribe();
           this.messageService.add({
             severity: "success",
             summary: "Suppression",
